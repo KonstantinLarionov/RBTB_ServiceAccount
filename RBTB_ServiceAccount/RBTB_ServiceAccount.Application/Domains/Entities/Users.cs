@@ -1,6 +1,6 @@
 namespace RBTB_ServiceAccount.Application.Domains.Entities;
 
-public class User
+public class Users
 {
     
 }
