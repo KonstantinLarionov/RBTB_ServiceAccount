@@ -1,7 +1,8 @@
 namespace RBTB_ServiceAccount.Application.Domains.Entities.Enums;
 
-public enum OrderType
+public enum PositionStatus
 {
-    Limit,
-    Market
+    Normal,
+    Liq,
+    Adl
 }

@@ -1,7 +1,7 @@
 namespace RBTB_ServiceAccount.Application.Domains.Entities.Enums;
 
-public enum OrderType
+public enum Side
 {
-    Limit,
-    Market
+    Buy,
+    Sell
 }
