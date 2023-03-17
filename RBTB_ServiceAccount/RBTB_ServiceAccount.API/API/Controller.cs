@@ -2,6 +2,8 @@ using System.ComponentModel;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RBTB_ServiceAccount.Application.Domains.Request;
+using RBTB_ServiceAccount.Application.Domains.Responses;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace RBTB_ServiceAccount.API.API;
@@ -20,9 +22,9 @@ public class Controller : ControllerBase
     }
     [HttpGet]
     [Route("getinfo")]
-    [SwaggerResponse(StatusCodes.Status200Ok,"",typeof()]
-    [SwaggerResponse(StatusCodes.Status400BadRequest," ",typeof())]
-    public async  Task<JsonResult> GetInfo([FromQuery])
+    [SwaggerResponse(StatusCodes.Status200OK,"все оК",typeof(GetResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest," все плохо",typeof(GetResponse))]
+    public async  Task<JsonResult> GetInfo([FromQuery] GetRequest request)
     {
         var resp = await _mediator.Send(request);
         if (resp.Success)
