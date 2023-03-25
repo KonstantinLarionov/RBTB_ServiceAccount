@@ -1,10 +1,5 @@
 using System.ComponentModel;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RBTB_ServiceAccount.Application.Domains.Request;
-using RBTB_ServiceAccount.Application.Domains.Responses;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace RBTB_ServiceAccount.API.API;
 [ApiController]
@@ -14,11 +9,10 @@ namespace RBTB_ServiceAccount.API.API;
 
 public class Controller : ControllerBase
 {
-    private readonly IMediator _mediator;
 
-    public Controller(IMediator mediator)
+    public Controller()
     {
-        _mediator = mediator;
+
     }
     /*[HttpGet]
     [Route("getinfo")]
