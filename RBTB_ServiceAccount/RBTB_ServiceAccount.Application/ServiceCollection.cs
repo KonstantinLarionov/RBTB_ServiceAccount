@@ -8,6 +8,6 @@ public static class ServiceCollection
     public static void AddAplication(this IServiceCollection serviceCollection)
     {
         var assembly = typeof(ServiceCollection).GetTypeInfo().Assembly;
-        serviceCollection.AddMediatR(assembly);
+        
     }
 }
