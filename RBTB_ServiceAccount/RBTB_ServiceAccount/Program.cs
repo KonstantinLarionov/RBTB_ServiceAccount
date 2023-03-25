@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers()
     .AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAplication(builder.Configuration);
+builder.Services.AddAplication();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddSwaggerGen(options=>
 {options.SwaggerDoc("v1", new OpenApiInfo()
