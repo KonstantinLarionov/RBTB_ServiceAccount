@@ -20,10 +20,10 @@ public class Controller : ControllerBase
     {
         _mediator = mediator;
     }
-    [HttpGet]
+    /*[HttpGet]
     [Route("getinfo")]
-    [SwaggerResponse(StatusCodes.Status200OK,"все оК",typeof(GetResponse))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest," все плохо",typeof(GetResponse))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все оК", typeof(GetResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(GetResponse))]
     public async  Task<JsonResult> GetInfo([FromQuery] GetRequest request)
     {
         var resp = await _mediator.Send(request);
@@ -33,6 +33,6 @@ public class Controller : ControllerBase
         {
             return new JsonResult(BadRequest(resp));
         }
-    }
-        
+    }*/
+
 }
