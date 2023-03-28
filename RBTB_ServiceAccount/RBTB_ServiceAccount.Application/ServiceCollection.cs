@@ -1,5 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using RBTB_ServiceAccount.Application.Abstractions;
+using RBTB_ServiceAccount.Application.Handlers;
 
 namespace RBTB_ServiceAccount.Application;
 
@@ -7,7 +9,6 @@ public static class ServiceCollection
 {
     public static void AddAplication(this IServiceCollection serviceCollection)
     {
-        var assembly = typeof(ServiceCollection).GetTypeInfo().Assembly;
-        
+        serviceCollection.AddSingleton<ITradesService, TradesService>();
     }
 }
