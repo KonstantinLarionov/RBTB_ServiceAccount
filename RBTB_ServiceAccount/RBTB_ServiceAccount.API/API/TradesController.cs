@@ -4,7 +4,6 @@ using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 
 namespace RBTB_ServiceAccount.API.API;
 
@@ -23,22 +22,91 @@ namespace RBTB_ServiceAccount.API.API;
 
     [HttpGet]
     [Route("{id}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все оК", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
     public JsonResult GetTrade([FromRoute] Guid id)
     {
         var response = _tradesService.GetTrade(id);
 
-        if (response.Success)
+        if (response.IsSuccess)
         {
-            return new JsonResult(response);
+            return new JsonResult(Ok(response));
         }
         else
         {
-            return new JsonResult(response)
-            {
-                StatusCode = (int)HttpStatusCode.BadRequest
-            };
+            return new JsonResult(BadRequest(response));
         }
     }
-}
+
+    [HttpPost]
+    [Route("")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    public JsonResult AddTrade([FromBody] Trades trade)
+    {
+        var response = _tradesService.AddTrade(trade);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpDelete]
+    [Route("{id}/delete")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    public JsonResult DeleteTrade([FromRoute] Trades trade)
+    {
+        var response = _tradesService.DeleteTrade(trade);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpPut]
+    [Route("update")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    public JsonResult UpdateTrade([FromRoute] Guid id)
+    {
+        var response = _tradesService.UpdateTrade(id);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpGet]
+    [Route("")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    public JsonResult GetTradesByUserId([FromQuery] Guid userId)
+    {
+        var response = _tradesService.GetTradesByUserId(userId);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+} 

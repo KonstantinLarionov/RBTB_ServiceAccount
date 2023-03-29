@@ -6,5 +6,13 @@ namespace RBTB_ServiceAccount.Application.Abstractions
     public interface ITradesService
     {
         BaseResponse<Trades> GetTrade(Guid id);
+
+        BaseResponse<Trades> AddTrade(Trades trade);
+
+        BaseResponse<Trades> DeleteTrade(Trades trade);
+
+        BaseResponse<Trades> UpdateTrade(Guid id);
+
+        BaseResponse<Trades> GetTradesByUserId(Guid id);
     }
 }
