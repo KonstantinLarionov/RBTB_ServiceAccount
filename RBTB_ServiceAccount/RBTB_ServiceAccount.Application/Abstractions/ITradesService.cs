@@ -9,10 +9,10 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<Trades> AddTrade(Trades trade);
 
-        BaseResponse<Trades> DeleteTrade(Trades trade);
+        BaseResponse<Trades> DeleteTrade(Guid tradeId);
 
         BaseResponse<Trades> UpdateTrade(Guid id);
 
-        BaseResponse<Trades> GetTradesByUserId(Guid id);
+        BaseResponse<List<Trades>> GetTradesByUserId(Guid id);
     }
 }

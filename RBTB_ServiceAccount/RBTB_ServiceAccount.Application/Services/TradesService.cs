@@ -3,7 +3,7 @@ using RBTB_ServiceAccount.Application.Domains.Entities;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using RBTB_ServiceAccount.Database.Abstractions;
 
-namespace RBTB_ServiceAccount.Application.Handlers;
+namespace RBTB_ServiceAccount.Application.Services;
 public class TradesService : ITradesService
 {
     private IRepository<Trades> _repositoryTrades;
@@ -30,26 +30,36 @@ public class TradesService : ITradesService
         };
     }
 
-    public BaseResponse<Trades> AddTrade(Trades trade)
+    public BaseResponse<Guid> AddTrade(Trades trade)
     {
-        _repositoryTrades.Create(trade);
+        var tradeUpdateResult = _repositoryTrades.Create(trade);
 
-        return new BaseResponse<Trades>
+        if (tradeUpdateResult == 0)
         {
-            Data = trade
+            return new BaseResponse<Guid>
+            {
+                IsSuccess = false,
+                ErrorMessage = $"Don`t added trade{trade}"
+            };
+        }
+
+        return new BaseResponse<Guid>
+        {
+            Data = trade.Id
         };
     }
 
-    public BaseResponse<bool> DeleteTrade(Trades trade)
+
+    public BaseResponse<bool> DeleteTrade(Guid tradeId)
     {
-        _repositoryTrades.Remove(trade);
-        
-        if (trade == null)
+        var tradeDeleteResult = _repositoryTrades.FindById(tradeId);
+
+        if (tradeDeleteResult == null)
         {
             return new BaseResponse<bool>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Trade {trade} delete"
+                ErrorMessage = $"Trade {tradeId} delete"
             };
         }
         
@@ -62,9 +72,9 @@ public class TradesService : ITradesService
     public BaseResponse<bool> UpdateTrade(Trades trade)
 
     { 
-        _repositoryTrades.Update(trade);
+        var tradeUpdateResult =  _repositoryTrades.Update(trade);
 
-        if (trade == null)
+        if (tradeUpdateResult == 0)
         {
             return new BaseResponse<bool>
             {
@@ -87,5 +97,20 @@ public class TradesService : ITradesService
         {
             Data = trades
         };
+    }
+
+    BaseResponse<Trades> ITradesService.AddTrade(Trades trade)
+    {
+        throw new NotImplementedException();
+    }
+
+    BaseResponse<Trades> ITradesService.DeleteTrade(Guid tradeId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public BaseResponse<Trades> UpdateTrade(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }
