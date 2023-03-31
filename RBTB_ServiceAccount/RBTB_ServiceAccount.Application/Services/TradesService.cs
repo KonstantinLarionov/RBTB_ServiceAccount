@@ -98,19 +98,4 @@ public class TradesService : ITradesService
             Data = trades
         };
     }
-
-    BaseResponse<Trades> ITradesService.AddTrade(Trades trade)
-    {
-        throw new NotImplementedException();
-    }
-
-    BaseResponse<Trades> ITradesService.DeleteTrade(Guid tradeId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public BaseResponse<Trades> UpdateTrade(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-}
+} 

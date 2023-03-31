@@ -78,9 +78,9 @@ namespace RBTB_ServiceAccount.API.API;
     [Route("update")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
-    public JsonResult UpdateTrade([FromRoute] Guid id)
+    public JsonResult UpdateTrade([FromBody] Trades trade)
     {
-        var response = _tradesService.UpdateTrade(id);
+        var response = _tradesService.UpdateTrade(trade);
 
         if (response.IsSuccess)
         {
