@@ -62,6 +62,8 @@ public class TradesService : ITradesService
                 ErrorMessage = $"Trade {tradeId} delete"
             };
         }
+
+        _repositoryTrades.Remove(tradeDeleteResult);
         
         return new BaseResponse<bool>
         {

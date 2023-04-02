@@ -60,9 +60,9 @@ namespace RBTB_ServiceAccount.API.API;
     [Route("{id}/delete")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
-    public JsonResult DeleteTrade([FromRoute] Trades trade)
+    public JsonResult DeleteTrade([FromRoute] Guid id)
     {
-        var response = _tradesService.DeleteTrade(trade.Id);
+        var response = _tradesService.DeleteTrade(id);
 
         if (response.IsSuccess)
         {
