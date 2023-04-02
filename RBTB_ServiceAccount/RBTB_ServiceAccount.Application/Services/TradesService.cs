@@ -54,25 +54,23 @@ public class TradesService : ITradesService
     {
         var tradeDeleteResult = _repositoryTrades.FindById(tradeId);
 
-        if (tradeDeleteResult == null)
+        if (tradeDeleteResult != null)
         {
-            return new BaseResponse<bool>
+            var removeTradeResult= _repositoryTrades.Remove(tradeDeleteResult);
+            if(removeTradeResult != 0) 
             {
-                IsSuccess = false,
-                ErrorMessage = $"Trade {tradeId} delete"
-            };
+                return new BaseResponse<bool>();
+            }
         }
-
-        _repositoryTrades.Remove(tradeDeleteResult);
-        
+  
         return new BaseResponse<bool>
         {
-            IsSuccess = true
+            IsSuccess = false,
+            ErrorMessage = $"Trade don`t delete. Trade:{tradeId}"
         };
     }
 
     public BaseResponse<bool> UpdateTrade(Trades trade)
-
     { 
         var tradeUpdateResult =  _repositoryTrades.Update(trade);
 
@@ -81,7 +79,7 @@ public class TradesService : ITradesService
             return new BaseResponse<bool>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Trade {trade} update"
+                ErrorMessage = $"Trade don`t update. Trade:{trade}"
             };
         }
 

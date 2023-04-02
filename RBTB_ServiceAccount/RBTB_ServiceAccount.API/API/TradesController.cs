@@ -40,8 +40,8 @@ namespace RBTB_ServiceAccount.API.API;
 
     [HttpPost]
     [Route("")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Guid>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Guid>))]
     public JsonResult AddTrade([FromBody] Trades trade)
     {
         var response = _tradesService.AddTrade(trade);
@@ -58,8 +58,8 @@ namespace RBTB_ServiceAccount.API.API;
 
     [HttpDelete]
     [Route("{id}/delete")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<bool>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<bool>))]
     public JsonResult DeleteTrade([FromRoute] Guid id)
     {
         var response = _tradesService.DeleteTrade(id);
@@ -76,8 +76,8 @@ namespace RBTB_ServiceAccount.API.API;
 
     [HttpPut]
     [Route("update")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<bool>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<bool>))]
     public JsonResult UpdateTrade([FromBody] Trades trade)
     {
         var response = _tradesService.UpdateTrade(trade);
@@ -94,8 +94,8 @@ namespace RBTB_ServiceAccount.API.API;
 
     [HttpGet]
     [Route("")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Trades>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Trades>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Trades>>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Trades>>))]
     public JsonResult GetTradesByUserId([FromQuery] Guid userId)
     {
         var response = _tradesService.GetTradesByUserId(userId);
