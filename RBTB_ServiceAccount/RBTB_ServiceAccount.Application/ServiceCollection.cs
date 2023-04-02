@@ -9,5 +9,7 @@ public static class ServiceCollection
     public static void AddAplication(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<ITradesService, TradesService>();
+
+        serviceCollection.AddSingleton<IWalletService, WalletService>();
     }
 }
