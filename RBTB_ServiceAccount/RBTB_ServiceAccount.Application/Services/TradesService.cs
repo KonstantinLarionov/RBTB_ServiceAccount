@@ -1,5 +1,7 @@
 using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Entities.Enums;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using RBTB_ServiceAccount.Database.Abstractions;
 
@@ -30,8 +32,29 @@ public class TradesService : ITradesService
         };
     }
 
-    public BaseResponse<Guid> AddTrade(Trades trade)
+    public BaseResponse<Guid> AddTrade(AddTradeRequest request)
     {
+        var trade = new Trade
+        {
+            Id = Guid.NewGuid(),
+
+            Price = request.Price,
+
+            Count = request.Count,
+
+            OrderType = request.OrderType,
+
+            Side = request.Side,
+
+            Symbol = request.Symbol,
+
+            OrderStatus = request.OrderStatus,
+
+            TimeInForce = request.TimeInForce,
+
+            DateTime = request.CreatedDate
+        };
+
         var tradeUpdateResult = _repositoryTrades.Create(trade);
 
         if (tradeUpdateResult == 0)

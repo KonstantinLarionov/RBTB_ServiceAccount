@@ -1,4 +1,5 @@
 ﻿using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 
 namespace RBTB_ServiceAccount.Application.Abstractions
@@ -7,7 +8,7 @@ namespace RBTB_ServiceAccount.Application.Abstractions
     {
         BaseResponse<Trades> GetTrade(Guid id);
 
-        BaseResponse<Guid> AddTrade(Trades trade);
+        BaseResponse<Guid> AddTrade(AddTradeRequest request);
 
         BaseResponse<bool> DeleteTrade(Guid tradeId);
 

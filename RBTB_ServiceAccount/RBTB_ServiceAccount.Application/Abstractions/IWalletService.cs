@@ -1,4 +1,5 @@
 ﻿using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 
 namespace RBTB_ServiceAccount.Application.Abstractions
@@ -7,7 +8,7 @@ namespace RBTB_ServiceAccount.Application.Abstractions
     {
         BaseResponse<Wallet> GetWallet(Guid id);
 
-        BaseResponse<Guid> AddWallet(Wallet wallet);
+        BaseResponse<Guid> AddWallet(AddWalletRequest request);
 
         BaseResponse<bool> DeleteWallet(Guid walletId);
 
@@ -15,6 +16,6 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<List<Wallet>> GetWalletByUserId(Guid userId);
 
-        BaseResponse<bool> GetWalletbySymbol(Wallet wallet);
+        BaseResponse<bool> GetWalletBySymbol(Wallet wallet);
     }
 }

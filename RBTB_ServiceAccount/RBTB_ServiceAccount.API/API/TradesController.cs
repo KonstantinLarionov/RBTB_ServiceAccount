@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -42,9 +43,9 @@ namespace RBTB_ServiceAccount.API.API;
     [Route("")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Guid>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Guid>))]
-    public JsonResult AddTrade([FromBody] Trades trade)
+    public JsonResult AddTrade([FromBody] AddTradeRequest request)
     {
-        var response = _tradesService.AddTrade(trade);
+        var response = _tradesService.AddTrade(request);
 
         if (response.IsSuccess)
         {

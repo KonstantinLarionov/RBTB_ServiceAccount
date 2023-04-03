@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -42,9 +43,9 @@ public class WalletController : ControllerBase
     [Route("")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Guid>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Guid>))]
-    public JsonResult AddWallet([FromBody] Wallet wallet)
+    public JsonResult AddWallet([FromBody] AddWalletRequest request)
     {
-        var response = _walletService.AddWallet(wallet);
+        var response = _walletService.AddWallet(request);
 
         if (response.IsSuccess)
         {

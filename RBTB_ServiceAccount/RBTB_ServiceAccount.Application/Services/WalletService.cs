@@ -1,5 +1,7 @@
-﻿using RBTB_ServiceAccount.Application.Abstractions;
+﻿using Azure.Core;
+using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
+using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using RBTB_ServiceAccount.Database.Abstractions;
 
@@ -30,8 +32,16 @@ public class WalletService : IWalletService
         };
     }
 
-    public BaseResponse<Guid> AddWallet(Wallet wallet)
+    public BaseResponse<Guid> AddWallet(AddWalletRequest request)
     {
+        var wallet = new Wallet
+        {
+            Id = Guid.NewGuid(),
+            UserId = request.UserId,
+            Symbol = request.Symbol,
+            Balance = request.Balance
+        };
+
         var walletUpdateResult = _repositoryWallet.Create(wallet);
 
         if (walletUpdateResult == 0)
@@ -50,7 +60,7 @@ public class WalletService : IWalletService
     }
 
 
-    public BaseResponse<bool> DeleteTrade(Guid walletId)
+    public BaseResponse<bool> DeleteWallet(Guid walletId)
     {
         var walletDeleteResult = _repositoryWallet.FindById(walletId);
 
@@ -66,7 +76,7 @@ public class WalletService : IWalletService
         return new BaseResponse<bool>
         {
             IsSuccess = false,
-            ErrorMessage = $"Trade don`t delete. Trade:{walletId}"
+            ErrorMessage = $"Wallet don`t delete. Wallet:{walletId}"
         };
     }
 
@@ -79,7 +89,7 @@ public class WalletService : IWalletService
             return new BaseResponse<bool>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Trade don`t update. Trade:{wallet}"
+                ErrorMessage = $"Wallet don`t update. Wallet:{wallet}"
             };
         }
 
