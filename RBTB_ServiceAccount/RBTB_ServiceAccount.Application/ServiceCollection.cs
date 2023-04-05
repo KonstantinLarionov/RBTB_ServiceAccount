@@ -11,5 +11,7 @@ public static class ServiceCollection
         serviceCollection.AddSingleton<ITradesService, TradesService>();
 
         serviceCollection.AddSingleton<IWalletService, WalletService>();
+
+        serviceCollection.AddSingleton<IPositionsService, PositionsService>();
     }
 }
