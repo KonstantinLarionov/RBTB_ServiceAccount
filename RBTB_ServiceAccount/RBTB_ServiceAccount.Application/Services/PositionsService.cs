@@ -3,7 +3,6 @@ using RBTB_ServiceAccount.Application.Domains.Entities;
 using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
 using RBTB_ServiceAccount.Database.Abstractions;
-using System.Diagnostics;
 
 namespace RBTB_ServiceAccount.Application.Services;
 public class PositionsService : IPositionsService
@@ -15,15 +14,15 @@ public class PositionsService : IPositionsService
         _repositoryPositions = Positions;
     }
 
-    public BaseResponse<Positions> GetPositions(Guid id)
+    public BaseResponse<Positions> GetPosition(Guid id)
     {
-        var trade = _repositoryPositions.FindById(id);
-        if (trade == null)
+        var position = _repositoryPositions.FindById(id);
+        if (position == null)
         {
             return new BaseResponse<Positions>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Positions with id {id} not found"
+                ErrorMessage = $"Position with id {id} not found"
             };
         }
         return new BaseResponse<Positions>
@@ -34,22 +33,22 @@ public class PositionsService : IPositionsService
 
     public BaseResponse<Guid> AddPosition (AddPositionRequest request)
     {
-        var trade = new Position
+        var position = new Position
         {
             Id = Guid.NewGuid(),
+            UserId = request.UserId,
+            TradesId = request.TradesId,
             Price = request.Price,
             Count = request.Count,
-            OrderType = request.OrderType,
             Side = request.Side,
             Symbol = request.Symbol,
-            OrderStatus = request.OrderStatus,
-            TimeInForce = request.TimeInForce,
+            PositionStatus = request.PositionStatus,
             DateTime = request.CreatedDate
         };
 
         var positionsUpdateResult = _repositoryPositions.Create(position);
 
-        if (positionUpdateResult == 0)
+        if (positionsUpdateResult == 0)
         {
             return new BaseResponse<Guid>
             {
@@ -67,9 +66,9 @@ public class PositionsService : IPositionsService
 
     public BaseResponse<bool> DeletePosition (Guid positionId)
     {
-        var tradeDeleteResult = _repositoryPositions.FindById(positionId);
+        var positionDeleteResult = _repositoryPositions.FindById(positionId);
 
-        if (tradeDeleteResult != null)
+        if (positionDeleteResult != null)
         {
             var removePositionResult = _repositoryPositions.Remove(positionDeleteResult);
             if (removePositionResult != 0)
@@ -87,9 +86,9 @@ public class PositionsService : IPositionsService
 
     public BaseResponse<bool> UpdatePosition(Positions position)
     {
-        var positionUpdateResult = _repositoryPositions.Update(positionId);
+        var positionUpdateResult = _repositoryPositions.Update(position);
 
-        if (positionsUpdateResult == 0)
+        if (positionUpdateResult == 0)
         {
             return new BaseResponse<bool>
             {
@@ -106,7 +105,7 @@ public class PositionsService : IPositionsService
 
     public BaseResponse<List<Positions>> GetPositionsByUserId(Guid userId)
     {
-        var trades = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
+        var positions = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
 
         return new BaseResponse<List<Positions>>
         {
@@ -114,30 +113,22 @@ public class PositionsService : IPositionsService
         };
     }
 
-    public BaseResponse<Positions> GetPositionBySymbol(Guid userId, string symbol)
+
+    public BaseResponse<Positions> GetPositionByTradeId(Guid tradeId)
     {
-        var positionGetSymbolResult = _repositoryPositions.Get().Where(p => p.UserId == userId && p.Symbol == symbol).FirstOrDefault();
-        if (positionGetSymbolResult == null)
+        var positiontradeId = _repositoryPositions.FirstOrDefault(p => p.TradesId == tradeId);
+
+        if (position == null)
         {
             return new BaseResponse<Positions>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Position with userId {userId} and symbol {symbol} not found"
+                ErrorMessage = $"Position with tradeId {tradeId} not found"
             };
         }
-        return new BaseResponse<Wallet>
+        return new BaseResponse<Positions>
         {
-            Data = positionGetSymbolResult
-        };
-    }
-
-    public BaseResponse<List<Positions>> GetTradesByUserId(Guid userId)
-    {
-        var trades = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
-
-        return new BaseResponse<List<Positions>>
-        {
-            Data = positions
+            Data = position
         };
     }
 }

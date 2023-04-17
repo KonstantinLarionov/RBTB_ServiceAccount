@@ -4,7 +4,6 @@ using RBTB_ServiceAccount.Application.Abstractions;
 using RBTB_ServiceAccount.Application.Domains.Entities;
 using RBTB_ServiceAccount.Application.Domains.Requests;
 using RBTB_ServiceAccount.Application.Domains.Responses;
-using RBTB_ServiceAccount.Application.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace RBTB_ServiceAccount.API.API;
@@ -15,7 +14,7 @@ namespace RBTB_ServiceAccount.API.API;
 
 public class PositionsController : ControllerBase
 {
-    private readonly IPositionsService _PositionsService;
+    private readonly IPositionsService _positionsService;
 
     public PositionsController(IPositionsService positionsService)
     {
@@ -82,7 +81,7 @@ public class PositionsController : ControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<bool>))]
     public JsonResult UpdatePosition([FromBody] Positions position)
     {
-        var response = _positionService.UpdatePosition(position);
+        var response = _positionsService.UpdatePosition(position);
 
         if (response.IsSuccess)
         {
@@ -101,6 +100,42 @@ public class PositionsController : ControllerBase
     public JsonResult GetPositionsByUserId([FromQuery] Guid userId)
     {
         var response = _positionsService.GetPositionsByUserId(userId);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpGet]
+    [Route("{userId}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
+    public JsonResult GetTradesByUserId([FromQuery] Guid userId)
+    {
+        var response = _positionsService.GetTradesByUserId(userId);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpGet]
+    [Route("trade")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Positions>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Positions>))]
+    public JsonResult GetPositionByTradeId([FromQuery] Guid tradeId)
+    {
+        var response = _positionsService.GetPositionByTradeId(tradeId);
 
         if (response.IsSuccess)
         {

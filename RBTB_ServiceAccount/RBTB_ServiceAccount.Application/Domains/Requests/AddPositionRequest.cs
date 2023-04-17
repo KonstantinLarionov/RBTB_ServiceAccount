@@ -2,7 +2,7 @@
 
 namespace RBTB_ServiceAccount.Application.Domains.Requests
 {
-    public class AddPositionsRequest
+    public class AddPositionRequest
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
@@ -11,7 +11,7 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests
         public decimal Count { get; set; }
         public Side Side { get; set; }
         public string Symbol { get; set; }
-        public OrderStatus PositionsStatus { get; set; }
+        public OrderStatus PositionStatus { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

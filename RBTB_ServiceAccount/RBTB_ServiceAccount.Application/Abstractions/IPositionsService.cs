@@ -6,9 +6,9 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 {
     public interface IPositionsService
     {
-        BaseResponse<Positions> GetPositions(Guid id);
+        BaseResponse<Positions> GetPosition(Guid id);
 
-        BaseResponse<Guid> AddPosition (AddPositionRequest request);
+        BaseResponse<Guid> AddPosition(AddPositionRequest request);
 
         BaseResponse<bool> DeletePosition(Guid positionId);
 
@@ -16,7 +16,10 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<List<Positions>> GetPositionsByUserId(Guid userId);
 
-        BaseResponse<bool> GetPositionsBySymbol(Position position);
+        BaseResponse<List<Positions>> GetTradesByUserId(Guid userId);
 
+        BaseResponse<Positions> GetPositionByTradeId(Guid tradeId);
+
+        BaseResponse<List<Positions>> GetPositionsByUserIdAndSymbol(userId symbol);
     }
 }
