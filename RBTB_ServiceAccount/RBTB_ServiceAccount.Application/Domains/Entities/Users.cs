@@ -9,5 +9,4 @@ public class Users
     public DateTime CreatedDate { get; set; }
     public Guid RefferalFrom { get; set; }
     public string RefferalCode { get; set; }
-
 }
