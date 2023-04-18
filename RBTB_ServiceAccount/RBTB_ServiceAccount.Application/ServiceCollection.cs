@@ -13,5 +13,7 @@ public static class ServiceCollection
         serviceCollection.AddSingleton<IWalletService, WalletService>();
 
         serviceCollection.AddSingleton<IPositionsService, PositionsService>();
+
+        serviceCollection.AddSingleton<IUsersService, UsersService>();
     }
 }
