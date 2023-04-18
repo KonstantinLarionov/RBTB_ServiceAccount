@@ -97,9 +97,9 @@ namespace RBTB_ServiceAccount.API.API;
     [Route("")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Trades>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Trades>>))]
-    public JsonResult GetTradesByUserId([FromQuery] Guid userId)
+    public JsonResult GetTradeByUserId([FromQuery] Guid userId)
     {
-        var response = _tradesService.GetTradesByUserId(userId);
+        var response = _tradesService.GetTradeByUserId(userId);
 
         if (response.IsSuccess)
         {

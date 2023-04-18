@@ -33,7 +33,7 @@ public class TradesService : ITradesService
 
     public BaseResponse<Guid> AddTrade(AddTradeRequest request)
     {
-        var trade = new Trade
+        var trade = new Trades
         {
             Id = Guid.NewGuid(),
             Price = request.Price,
@@ -43,7 +43,7 @@ public class TradesService : ITradesService
             Symbol = request.Symbol,
             OrderStatus = request.OrderStatus,
             TimeInForce = request.TimeInForce,
-            DateTime = request.CreatedDate
+            CreatedDate = request.CreatedDate
         };
 
         var tradeUpdateResult = _repositoryTrades.Create(trade);
@@ -103,13 +103,13 @@ public class TradesService : ITradesService
         };
     }
 
-    public BaseResponse<List<Trades>> GetTradesByUserId(Guid userId)
+    public BaseResponse<List<Trades>> GetTradeByUserId(Guid userId)
     {
-        var trades = _repositoryTrades.Get().Where(t => t.UserId == userId).ToList();
+        var trade = _repositoryTrades.Get().Where(t => t.UserId == userId).ToList();
 
         return new BaseResponse<List<Trades>>
         {
-            Data = trades
+            Data = trade
         };
     }
 } 

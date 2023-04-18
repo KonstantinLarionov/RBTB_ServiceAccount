@@ -4,7 +4,6 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests
 {
     public class AddPositionRequest
     {
-        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid TradesId { get; set; }
         public decimal Price { get; set; }

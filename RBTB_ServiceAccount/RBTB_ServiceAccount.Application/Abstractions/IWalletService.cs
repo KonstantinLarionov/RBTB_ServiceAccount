@@ -16,6 +16,6 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<List<Wallet>> GetWalletByUserId(Guid userId);
 
-        BaseResponse<bool> GetWalletBySymbol(Wallet wallet);
+        BaseResponse<Wallet> GetWalletBySymbol(Guid userId , string symbol);
     }
 }

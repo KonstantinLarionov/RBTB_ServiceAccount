@@ -97,9 +97,9 @@ public class UsersController : ControllerBase
     [Route("")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Users>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Users>>))]
-    public JsonResult GetUsersByUserId([FromQuery] Guid userId)
+    public JsonResult GetUserById([FromQuery] Guid id)
     {
-        var response = _usersService.GetUsersByUserId(userId);
+        var response = _usersService.GetUserById(id);
 
         if (response.IsSuccess)
         {

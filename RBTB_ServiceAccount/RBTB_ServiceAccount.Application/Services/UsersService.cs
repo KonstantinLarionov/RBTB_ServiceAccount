@@ -33,13 +33,13 @@ public class UsersService : IUsersService
 
     public BaseResponse<Guid> AddUser(AddUserRequest request)
     {
-        var user = new User
+        var user = new Users
         {
             Id = Guid.NewGuid(),
             Username = request.Username,
             Login = request.Login,
             Password = request.Password,
-            DateTime = request.CreatedDate,
+            CreatedDate = request.CreatedDate,
             RefferalFrom = Guid.NewGuid(),
             RefferalCode = request.RefferalCode
         };
@@ -101,13 +101,13 @@ public class UsersService : IUsersService
         };
     }
 
-    public BaseResponse<List<Users>> GetUsersById(Guid id)
+    public BaseResponse<List<Users>> GetUserById(Guid id)
     {
-        var users = _repositoryUsers.Get().Where(t => t.id == id).ToList();
+        var user = _repositoryUsers.Get().Where(t => t.Id == id).ToList();
 
         return new BaseResponse<List<Users>>
         {
-            Data = users
+            Data = user
         };
     }
 }

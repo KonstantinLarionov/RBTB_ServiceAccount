@@ -49,7 +49,7 @@ public class WalletService : IWalletService
             return new BaseResponse<Guid>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Don`t added trade{wallet}"
+                ErrorMessage = $"Don`t added wallet{wallet}"
             };
         }
 
@@ -80,7 +80,7 @@ public class WalletService : IWalletService
         };
     }
 
-    public BaseResponse<bool> UpdateTrade(Wallet wallet)
+    public BaseResponse<bool> UpdateWallet(Wallet wallet)
     { 
         var walletUpdateResult = _repositoryWallet.Update(wallet);
 

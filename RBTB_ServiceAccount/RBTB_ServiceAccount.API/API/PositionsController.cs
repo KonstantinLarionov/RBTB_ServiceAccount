@@ -95,11 +95,30 @@ public class PositionsController : ControllerBase
 
     [HttpGet]
     [Route("")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Trades>>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Trades>>))]
-    public JsonResult GetPositionsByUserId([FromQuery] Guid userId)
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
+    public JsonResult GetPositionByUserId([FromQuery] Guid userId)
     {
-        var response = _positionsService.GetPositionsByUserId(userId);
+        var response = _positionsService.GetPositionByUserId(userId);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpGet]
+    [Route("{userId}/{symbol}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Positions>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Positions>))]
+
+    public JsonResult GetPositionBySymbol([FromRoute] Guid userId, [FromRoute] string symbol)
+    {
+        var response = _positionsService.GetPositionBySymbol(userId, symbol);
 
         if (response.IsSuccess)
         {
@@ -115,7 +134,7 @@ public class PositionsController : ControllerBase
     [Route("{userId}")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
-    public JsonResult GetTradesByUserId([FromQuery] Guid userId)
+    public JsonResult GetTradesByUserId([FromRoute] Guid userId)
     {
         var response = _positionsService.GetTradesByUserId(userId);
 
@@ -130,12 +149,31 @@ public class PositionsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("trade")]
+    [Route("trades")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<Positions>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<Positions>))]
-    public JsonResult GetPositionByTradeId([FromQuery] Guid tradeId)
+    public JsonResult GetPositionByTradesId([FromQuery] Guid tradesId)
     {
-        var response = _positionsService.GetPositionByTradeId(tradeId);
+        var response = _positionsService.GetPositionByTradesId(tradesId);
+
+        if (response.IsSuccess)
+        {
+            return new JsonResult(Ok(response));
+        }
+        else
+        {
+            return new JsonResult(BadRequest(response));
+        }
+    }
+
+    [HttpGet]
+    [Route("{userId}/{symbol}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
+
+    public JsonResult GetTradesByUserIdAndSymbol([FromRoute] Guid userId, [FromRoute] string symbol, [FromQuery] GetPositionsBySymbolRequest request)
+    {
+        var response = _positionsService.GetTradesByUserIdAndSymbol(userId, symbol, request);
 
         if (response.IsSuccess)
         {

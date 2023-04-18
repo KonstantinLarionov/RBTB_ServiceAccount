@@ -17,6 +17,7 @@ public class PositionsService : IPositionsService
     public BaseResponse<Positions> GetPosition(Guid id)
     {
         var position = _repositoryPositions.FindById(id);
+
         if (position == null)
         {
             return new BaseResponse<Positions>
@@ -33,7 +34,7 @@ public class PositionsService : IPositionsService
 
     public BaseResponse<Guid> AddPosition (AddPositionRequest request)
     {
-        var position = new Position
+        var position = new Positions
         {
             Id = Guid.NewGuid(),
             UserId = request.UserId,
@@ -43,7 +44,7 @@ public class PositionsService : IPositionsService
             Side = request.Side,
             Symbol = request.Symbol,
             PositionStatus = request.PositionStatus,
-            DateTime = request.CreatedDate
+            CreatedDate = request.CreatedDate
         };
 
         var positionsUpdateResult = _repositoryPositions.Create(position);
@@ -103,32 +104,70 @@ public class PositionsService : IPositionsService
         };
     }
 
-    public BaseResponse<List<Positions>> GetPositionsByUserId(Guid userId)
+    public BaseResponse<List<Positions>> GetPositionByUserId(Guid userId)
     {
-        var positions = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
+        var position = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
 
         return new BaseResponse<List<Positions>>
         {
-            Data = positions
+            Data = position
         };
     }
 
-
-    public BaseResponse<Positions> GetPositionByTradeId(Guid tradeId)
+    public BaseResponse<Positions> GetPositionBySymbol(Guid userId, string symbol)
     {
-        var positiontradeId = _repositoryPositions.FirstOrDefault(p => p.TradesId == tradeId);
+        var positionGetSymbolResult = _repositoryPositions.Get().Where(p => p.UserId == userId && p.Symbol == symbol).FirstOrDefault();
 
-        if (position == null)
+        if (positionGetSymbolResult == null)
         {
             return new BaseResponse<Positions>
             {
                 IsSuccess = false,
-                ErrorMessage = $"Position with tradeId {tradeId} not found"
+                ErrorMessage = $"Position with userId {userId} and symbol {symbol} not found"
             };
         }
         return new BaseResponse<Positions>
         {
+            Data = positionGetSymbolResult
+        };
+    }
+
+    public BaseResponse<List<Positions>> GetTradesByUserId(Guid userId)
+    {
+        var trades = _repositoryPositions.Get().Where(t => t.UserId == userId).ToList();
+
+        return new BaseResponse<List<Positions>>
+        {
+            Data = trades
+        };
+    }
+
+    public BaseResponse<List<Positions>> GetPositionByTradesId(Guid tradesId)
+    {
+        var position = _repositoryPositions.Get().Where(p => p.TradesId == tradesId).ToList();
+
+        return new BaseResponse<List<Positions>>
+        {
             Data = position
+        };
+    }
+
+    public BaseResponse<List<Positions>> GetTradesByUserIdAndSymbol(Guid userId, string symbol, GetPositionsBySymbolRequest request)
+    {
+        var tradesGetByUserIdSymbolResult = _repositoryPositions.Get().Where(t => t.UserId == userId && t.Symbol == symbol).ToList();
+
+        var listPositions = _repositoryPositions.Get().Where(p => p.UserId == userId && p.Symbol == symbol).ToList();
+
+        if (listPositions != null)
+        {
+            listPositions = listPositions.Where(p => p.PositionStatus != null).ToList();
+
+            listPositions = listPositions.Where(p => p.Side != null).ToList();
+        }
+
+        return new BaseResponse<List<Positions>>
+        {
+            Data = tradesGetByUserIdSymbolResult
         };
     }
 }

@@ -14,6 +14,6 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<bool> UpdateTrade(Trades trade);
 
-        BaseResponse<List<Trades>> GetTradesByUserId(Guid userId);
+        BaseResponse<List<Trades>> GetTradeByUserId(Guid userId);
     }
 }
