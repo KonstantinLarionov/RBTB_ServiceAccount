@@ -93,23 +93,6 @@ public class PositionsController : ControllerBase
         }
     }
 
-    [HttpGet]
-    [Route("")]
-    [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
-    public JsonResult GetPositionByUserId([FromQuery] Guid userId)
-    {
-        var response = _positionsService.GetPositionByUserId(userId);
-
-        if (response.IsSuccess)
-        {
-            return new JsonResult(Ok(response));
-        }
-        else
-        {
-            return new JsonResult(BadRequest(response));
-        }
-    }
 
     [HttpGet]
     [Route("{userId}/{symbol}")]
@@ -134,9 +117,9 @@ public class PositionsController : ControllerBase
     [Route("{userId}")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
-    public JsonResult GetTradesByUserId([FromRoute] Guid userId)
+    public JsonResult GetPositionByUserId([FromRoute] Guid userId)
     {
-        var response = _positionsService.GetTradesByUserId(userId);
+        var response = _positionsService.GetPositionByUserId(userId);
 
         if (response.IsSuccess)
         {
@@ -167,13 +150,13 @@ public class PositionsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userId}/{symbol}")]
+    [Route("positions/{userId}/{symbol}")]
     [SwaggerResponse(StatusCodes.Status200OK, "все ок", typeof(BaseResponse<List<Positions>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, " все плохо", typeof(BaseResponse<List<Positions>>))]
 
-    public JsonResult GetTradesByUserIdAndSymbol([FromRoute] Guid userId, [FromRoute] string symbol, [FromQuery] GetPositionsBySymbolRequest request)
+    public JsonResult GetPositionByUserIdAndSymbol([FromRoute] Guid userId, [FromRoute] string symbol, [FromQuery] GetPositionsBySymbolRequest request)
     {
-        var response = _positionsService.GetTradesByUserIdAndSymbol(userId, symbol, request);
+        var response = _positionsService.GetPositionByUserIdAndSymbol(userId, symbol, request);
 
         if (response.IsSuccess)
         {

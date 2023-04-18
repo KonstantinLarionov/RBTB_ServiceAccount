@@ -104,16 +104,6 @@ public class PositionsService : IPositionsService
         };
     }
 
-    public BaseResponse<List<Positions>> GetPositionByUserId(Guid userId)
-    {
-        var position = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
-
-        return new BaseResponse<List<Positions>>
-        {
-            Data = position
-        };
-    }
-
     public BaseResponse<Positions> GetPositionBySymbol(Guid userId, string symbol)
     {
         var positionGetSymbolResult = _repositoryPositions.Get().Where(p => p.UserId == userId && p.Symbol == symbol).FirstOrDefault();
@@ -132,13 +122,13 @@ public class PositionsService : IPositionsService
         };
     }
 
-    public BaseResponse<List<Positions>> GetTradesByUserId(Guid userId)
+    public BaseResponse<List<Positions>> GetPositionByUserId(Guid userId)
     {
-        var trades = _repositoryPositions.Get().Where(t => t.UserId == userId).ToList();
+        var position = _repositoryPositions.Get().Where(p => p.UserId == userId).ToList();
 
         return new BaseResponse<List<Positions>>
         {
-            Data = trades
+            Data = position
         };
     }
 
@@ -152,22 +142,27 @@ public class PositionsService : IPositionsService
         };
     }
 
-    public BaseResponse<List<Positions>> GetTradesByUserIdAndSymbol(Guid userId, string symbol, GetPositionsBySymbolRequest request)
+    public BaseResponse<List<Positions>> GetPositionByUserIdAndSymbol(Guid userId, string symbol, GetPositionsBySymbolRequest request)
     {
-        var tradesGetByUserIdSymbolResult = _repositoryPositions.Get().Where(t => t.UserId == userId && t.Symbol == symbol).ToList();
+        var positionGetByUserIdSymbolResult = _repositoryPositions.Get().Where(t => t.UserId == userId && t.Symbol == symbol).ToList();
 
         var listPositions = _repositoryPositions.Get().Where(p => p.UserId == userId && p.Symbol == symbol).ToList();
 
         if (listPositions != null)
         {
-            listPositions = listPositions.Where(p => p.PositionStatus != null).ToList();
-
-            listPositions = listPositions.Where(p => p.Side != null).ToList();
+            if (request.PositionStatus != null)
+            {
+                listPositions = listPositions.Where(p => p.PositionStatus == request.PositionStatus).ToList();
+            }
+            if (request.Side != null)
+            {
+                listPositions = listPositions.Where(p => p.Side == request.Side).ToList();
+            }
         }
 
         return new BaseResponse<List<Positions>>
         {
-            Data = tradesGetByUserIdSymbolResult
+            Data = positionGetByUserIdSymbolResult
         };
     }
 }

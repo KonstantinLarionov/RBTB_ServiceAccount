@@ -14,14 +14,12 @@ namespace RBTB_ServiceAccount.Application.Abstractions
 
         BaseResponse<bool> UpdatePosition(Positions position);
 
-        BaseResponse<List<Positions>> GetPositionByUserId(Guid userId);
-
         BaseResponse<Positions> GetPositionBySymbol(Guid userId, string symbol);
 
-        BaseResponse<List<Positions>> GetTradesByUserId(Guid userId);
+        BaseResponse<List<Positions>> GetPositionByUserId(Guid userId);
 
         BaseResponse<List<Positions>> GetPositionByTradesId(Guid tradesId);
 
-        BaseResponse<List<Positions>> GetTradesByUserIdAndSymbol(Guid userId, string symbol, GetPositionsBySymbolRequest request);
+        BaseResponse<List<Positions>> GetPositionByUserIdAndSymbol(Guid userId, string symbol, GetPositionsBySymbolRequest request);
     }
 }
