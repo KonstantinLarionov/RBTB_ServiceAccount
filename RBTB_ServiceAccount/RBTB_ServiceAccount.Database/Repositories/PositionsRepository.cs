@@ -1,77 +1,83 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RBTB_ServiceAccount.Application.Domains.Entities;
-using RBTB_ServiceAccount.Database.Abstractions;
+using RBTB_ServiceAccount.Database.Entities;
 
 namespace RBTB_ServiceAccount.Database.Repositories;
 
-public class PositionsRepository:IRepository<Positions>
+public class PositionsRepository : IRepository<PositionEntity>
 {
-    private readonly DbSet<Positions> _dbSet;
-    private readonly RBTB_Context _context;
-    public PositionsRepository(RBTB_Context context)
-        {
-            _context = context;
-            _dbSet = context.Set<Positions>();
-        }
+    private readonly DbSet<PositionEntity> _dbSet;
+    private readonly ServiceAccountContext _context;
 
-        public IEnumerable<Positions> Get()
-        {
-            return _dbSet.AsNoTracking().ToList();
-        }
+    public PositionsRepository( ServiceAccountContext context )
+    {
+        _context = context;
+        _dbSet = context.Set<PositionEntity>();
+    }
 
-        public IEnumerable<Positions> Get(Func<Positions, bool> predicate)
-        {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
-        }
+    public IEnumerable<PositionEntity> Get()
+    {
+        return _dbSet.AsNoTracking().ToList();
+    }
 
-        public bool Any(Func<Positions, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+    public IEnumerable<PositionEntity> Get( Func<PositionEntity, bool> predicate )
+    {
+        return _dbSet.AsNoTracking().Where( predicate ).ToList();
+    }
 
-        public Positions FindById(Guid? id)
-        {
-            return _dbSet.Find(id);
-        }
+    public bool Any( Func<PositionEntity, bool> predicate )
+    {
+        throw new NotImplementedException();
+    }
 
-        public int Create(Positions item)
+    public PositionEntity FindById( Guid? id )
+    {
+        return _dbSet.Find( id );
+    }
+
+    public int Create( PositionEntity item )
+    {
+        _dbSet.Add( item );
+        return _context.SaveChanges();
+    }
+    public int Update( PositionEntity item )
+    {
+        _context.Entry( item ).State = EntityState.Modified;
+        return _context.SaveChanges();
+    }
+    public int Remove( Guid id )
+    {
+        var item = _dbSet.Find( id );
+        if ( item != null )
         {
-            _dbSet.Add(item);
+            _dbSet.Remove( item );
             return _context.SaveChanges();
         }
-        public int Update(Positions item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
-            return _context.SaveChanges();
-        }
-        public int Remove(Positions item)
-        {
-            _dbSet.Remove(item);
-            return _context.SaveChanges();
-        }
 
-        public IEnumerable<Positions> GetWithInclude(params Expression<Func<Positions, object>>[] includeProperties)
-        {
-            return Include(includeProperties).ToList();
-        }
+        return 0;
+    }
 
-        public IEnumerable<Positions> GetWithInclude(Func<Positions, bool> predicate,
-            params Expression<Func<Positions, object>>[] includeProperties)
-        {
-            var query = Include(includeProperties);
-            return query.Where(predicate).ToList();
-        }
+    public IEnumerable<PositionEntity> GetWithInclude( params Expression<Func<PositionEntity, object>>[] includeProperties )
+    {
+        return Include( includeProperties ).ToList();
+    }
 
-        public Positions GetWithIncludeWithoutRelatedEntities(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
+    public IEnumerable<PositionEntity> GetWithInclude( Func<PositionEntity, bool> predicate,
+        params Expression<Func<PositionEntity, object>>[] includeProperties )
+    {
+        var query = Include( includeProperties );
+        return query.Where( predicate ).ToList();
+    }
 
-        private IQueryable<Positions> Include(params Expression<Func<Positions, object>>[] includeProperties)
-        {
-            IQueryable<Positions> query = _dbSet.AsNoTracking();
-            return includeProperties
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
+    public PositionEntity GetWithIncludeWithoutRelatedEntities( Guid Id )
+    {
+        throw new NotImplementedException();
+    }
+
+    private IQueryable<PositionEntity> Include( params Expression<Func<PositionEntity, object>>[] includeProperties )
+    {
+        IQueryable<PositionEntity> query = _dbSet.AsNoTracking();
+        return includeProperties
+            .Aggregate( query, ( current, includeProperty ) => current.Include( includeProperty ) );
+    }
 }

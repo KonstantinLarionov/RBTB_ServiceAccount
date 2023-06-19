@@ -1,49 +1,85 @@
 using System.Text.Json.Serialization;
-using Microsoft.OpenApi.Models;
+
 using RBTB_ServiceAccount.Application;
 using RBTB_ServiceAccount.Database;
 
-var builder = WebApplication.CreateBuilder(args);
-string _specificCorsName = "CustomCorsPolicy";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy
-    (name: _specificCorsName, builder =>
-    {
-        builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader();
-    });
-});
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder( args );
+
+// Add services to the container.
+
 builder.Services.AddControllers()
-    .AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAplication(builder.Configuration);
-builder.Services.AddDatabase(builder.Configuration);
-builder.Services.AddSwaggerGen(options=>
-{options.SwaggerDoc("v1", new OpenApiInfo()
+    .AddJsonOptions( o =>
+    {
+        o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    } );
+
+builder.Services.AddInfrastructureDataBase( builder.Configuration );
+builder.Services.AddApplication();
+
+#region Swagger Configuration
+
+builder.Services.AddSwaggerGen( swagger =>
+{
+    //This is to generate the Default UI of Swagger Documentation
+    swagger.SwaggerDoc( "v1", new OpenApiInfo
     {
         Version = "v1",
-        Description = "RBTB",
-    });
-        
-});
+        Title = "JWT Token Authentication API",
+        Description = "ASP.NET Core 5.0 Web API"
+    } );
+    // To Enable authorization using Swagger (JWT)
+    swagger.AddSecurityDefinition( "Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description =
+            "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+    } );
+    swagger.AddSecurityRequirement( new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    } );
+} );
+#endregion
+
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
+
+// Configure the HTTP request pipeline.
+if ( app.Environment.IsDevelopment() )
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors();
-app.UseHttpsRedirection();
-app.UseRouting();
 app.UseStaticFiles();
+
+app.UseHttpsRedirection();
+
 app.UseAuthorization();
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-app.UseSwaggerUI(c =>
+
+app.UseSwagger();
+
+app.UseSwaggerUI( c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BARS.BotWebApi");
+    c.SwaggerEndpoint( "/swagger/v1/swagger.json", "RBTB_ServiceAccount" );
     c.RoutePrefix = string.Empty;
-});
+} );
+
 app.MapControllers();
 
 app.Run();

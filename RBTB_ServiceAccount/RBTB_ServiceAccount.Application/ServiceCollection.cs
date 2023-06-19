@@ -1,13 +1,14 @@
-using System.Reflection;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace RBTB_ServiceAccount.Application;
 
 public static class ServiceCollection
 {
-    public static void AddAplication(this IServiceCollection serviceCollection)
+    public static void AddApplication(this IServiceCollection services )
     {
         var assembly = typeof(ServiceCollection).GetTypeInfo().Assembly;
-        serviceCollection.AddMediatR(assembly);
+        services.AddMediatR(assembly);
     }
 }

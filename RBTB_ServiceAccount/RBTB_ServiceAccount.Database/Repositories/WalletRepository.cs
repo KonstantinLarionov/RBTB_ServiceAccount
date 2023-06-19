@@ -1,77 +1,84 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RBTB_ServiceAccount.Application.Domains.Entities;
-using RBTB_ServiceAccount.Database.Abstractions;
+using RBTB_ServiceAccount.Database.Entities;
 
 namespace RBTB_ServiceAccount.Database.Repositories;
 
-public class WalletRepository:IRepository<Wallet>
+public class WalletRepository : IRepository<WalletEntity>
 {
-    private readonly DbSet<Wallet> _dbSet;
-        private readonly RBTB_Context _context;
-        public WalletRepository(RBTB_Context context)
-        {
-            _context = context;
-            _dbSet = context.Set<Wallet>();
-        }
+    private readonly DbSet<WalletEntity> _dbSet;
+    private readonly ServiceAccountContext _context;
+    public WalletRepository( ServiceAccountContext context )
+    {
+        _context = context;
+        _dbSet = context.Set<WalletEntity>();
+    }
 
-        public IEnumerable<Wallet> Get()
-        {
-            return _dbSet.AsNoTracking().ToList();
-        }
+    public IEnumerable<WalletEntity> Get()
+    {
+        return _dbSet.AsNoTracking().ToList();
+    }
 
-        public IEnumerable<Wallet> Get(Func<Wallet, bool> predicate)
-        {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
-        }
+    public IEnumerable<WalletEntity> Get( Func<WalletEntity, bool> predicate )
+    {
+        return _dbSet.AsNoTracking().Where( predicate ).ToList();
+    }
 
-        public bool Any(Func<Wallet, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+    public bool Any( Func<WalletEntity, bool> predicate )
+    {
+        throw new NotImplementedException();
+    }
 
-        public Wallet FindById(Guid? id)
-        {
-            return _dbSet.Find(id);
-        }
+    public WalletEntity FindById( Guid? id )
+    {
+        return _dbSet.Find( id );
+    }
 
-        public int Create(Wallet item)
+    public int Create( WalletEntity item )
+    {
+        _dbSet.Add( item );
+        return _context.SaveChanges();
+    }
+
+    public int Update( WalletEntity item )
+    {
+        _context.Entry( item ).State = EntityState.Modified;
+        return _context.SaveChanges();
+    }
+
+    public int Remove( Guid id )
+    {
+        var item = _dbSet.Find( id );
+        if ( item != null )
         {
-            _dbSet.Add(item);
+            _dbSet.Remove( item );
             return _context.SaveChanges();
         }
-        public int Update(Wallet item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
-            return _context.SaveChanges();
-        }
-        public int Remove(Wallet item)
-        {
-            _dbSet.Remove(item);
-            return _context.SaveChanges();
-        }
 
-        public IEnumerable<Wallet> GetWithInclude(params Expression <Func<Wallet, object>>[] includeProperties)
-        {
-            return Include(includeProperties).ToList();
-        }
+        return 0;
+    }
 
-        public IEnumerable<Wallet> GetWithInclude(Func<Wallet, bool> predicate,
-            params Expression<Func<Wallet, object>>[] includeProperties)
-        {
-            var query = Include(includeProperties);
-            return query.Where(predicate).ToList();
-        }
+    public IEnumerable<WalletEntity> GetWithInclude( params Expression<Func<WalletEntity, object>>[] includeProperties )
+    {
+        return Include( includeProperties ).ToList();
+    }
 
-        public Wallet GetWithIncludeWithoutRelatedEntities(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
+    public IEnumerable<WalletEntity> GetWithInclude( Func<WalletEntity, bool> predicate,
+        params Expression<Func<WalletEntity, object>>[] includeProperties )
+    {
+        var query = Include( includeProperties );
+        return query.Where( predicate ).ToList();
+    }
 
-        private IQueryable<Wallet> Include(params Expression<Func<Wallet, object>>[] includeProperties)
-        {
-            IQueryable<Wallet> query = _dbSet.AsNoTracking();
-            return includeProperties
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
+    public WalletEntity GetWithIncludeWithoutRelatedEntities( Guid Id )
+    {
+        throw new NotImplementedException();
+    }
+
+    private IQueryable<WalletEntity> Include( params Expression<Func<WalletEntity, object>>[] includeProperties )
+    {
+        IQueryable<WalletEntity> query = _dbSet.AsNoTracking();
+        return includeProperties
+            .Aggregate( query, ( current, includeProperty ) => current.Include( includeProperty ) );
+    }
 }
