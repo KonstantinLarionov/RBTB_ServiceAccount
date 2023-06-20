@@ -36,12 +36,12 @@ public class PositionController : ControllerBase
     }
 
     [HttpGet]
-    [Route( "{PositionId}" )]
+    [Route( "{positionId}" )]
     [SwaggerResponse( StatusCodes.Status200OK, "200", typeof( GetPositionByIdResponse ) )]
     [SwaggerResponse( StatusCodes.Status400BadRequest, "400", typeof( GetPositionByIdResponse ) )]
-    public async Task<IActionResult> GetPositionById( [FromRoute] Guid PositionId )
+    public async Task<IActionResult> GetPositionById( [FromRoute] Guid positionId )
     {
-        var resp = await _mediator.Send( new GetPositionByIdRequest() { PositionId = PositionId } );
+        var resp = await _mediator.Send( new GetPositionByIdRequest() { PositionId = positionId } );
 
         if ( resp.Success )
         {
