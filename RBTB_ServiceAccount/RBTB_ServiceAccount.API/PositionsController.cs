@@ -10,11 +10,11 @@ namespace RBTB_ServiceAccount.API;
 [ApiController]
 [Route("positions")]
 [Produces("application/json")]
-public class PositionController : ControllerBase
+public class PositionsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public PositionController( IMediator mediator)
+    public PositionsController( IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException( nameof( mediator ) );
     }

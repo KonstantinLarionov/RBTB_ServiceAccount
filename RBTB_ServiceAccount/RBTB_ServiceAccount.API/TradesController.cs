@@ -8,13 +8,13 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace RBTB_ServiceAccount.API;
 
 [ApiController]
-[Route("trade")]
+[Route("trades")]
 [Produces("application/json")]
-public class TradeController : ControllerBase
+public class TradesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public TradeController( IMediator mediator)
+    public TradesController( IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException( nameof( mediator ) );
     }

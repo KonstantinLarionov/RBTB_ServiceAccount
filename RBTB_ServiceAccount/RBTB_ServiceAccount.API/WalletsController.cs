@@ -10,11 +10,11 @@ namespace RBTB_ServiceAccount.API;
 [ApiController]
 [Route("wallets")]
 [Produces("application/json")]
-public class WalletController : ControllerBase
+public class WalletsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public WalletController( IMediator mediator)
+    public WalletsController( IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException( nameof( mediator ) );
     }
