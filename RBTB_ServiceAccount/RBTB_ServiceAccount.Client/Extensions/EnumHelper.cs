@@ -1,15 +1,41 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-
-namespace RBTB_ServiceAccount.Client.Extensions
+﻿namespace RBTB_ServiceAccount.Client.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using JetBrains.Annotations;
+
     public static class EnumHelper
     {
         [CanBeNull]
-        public static string GetEnumMemberAttributeValue<T>(this T enumValue) where T : struct
+        public static string GetEnumMemberAttribute<T>(this T enumValue) where T : struct
+        {
+            var type = typeof(T);
+            if (!type.IsEnum)
+                throw new ArgumentException("Has to be of enum type!", nameof(enumValue));
+
+            return GetFieldCustomAttribute<T, EnumMemberAttribute>(enumValue.ToString())?.Value;
+        }
+
+        [CanBeNull]
+        public static string GetEnumMemberAttributeIfCanBeNull<T>(this T? enumValue) where T : struct
+        {
+            if (enumValue == null)
+            {
+                return "Неизвестная ошибка";
+            }
+
+            var type = typeof(T);
+            if (!type.IsEnum)
+                throw new ArgumentException("Has to be of enum type!", nameof(enumValue));
+
+            return GetFieldCustomAttribute<T, EnumMemberAttribute>(enumValue.ToString())?.Value;
+        }
+
+
+        [CanBeNull]
+        public static string GetEnumMemberAttributeValue<T>(T enumValue) where T : struct
         {
             var type = typeof(T);
             if (!type.IsEnum)
@@ -35,18 +61,25 @@ namespace RBTB_ServiceAccount.Client.Extensions
         public static T ToEnum<T>(this string str)
         {
             var enumType = typeof(T);
-            foreach (var name in Enum.GetNames(enumType))
+            try
             {
-                var enumMemberAttribute = ((EnumMemberAttribute[])enumType
-                    .GetField(name)
-                    .GetCustomAttributes(typeof(EnumMemberAttribute), true))
-                    .Single();
-                if (enumMemberAttribute.Value == str)
+                foreach (var name in Enum.GetNames(enumType))
                 {
-                    return (T)Enum.Parse(enumType, name);
+                    var enumMemberAttribute = ((EnumMemberAttribute[])enumType
+                        .GetField(name)
+                        .GetCustomAttributes(typeof(EnumMemberAttribute), true))
+                        .Single();
+                    if (enumMemberAttribute.Value == str)
+                    {
+                        return (T)Enum.Parse(enumType, name);
+                    }
                 }
+                return default(T);
             }
-            return default(T);
+            catch
+            {
+                return default(T);
+            }
         }
         ///<summary>
         /// Расширение для всех enum проекта. Перевод из строки в enumType. Если не существует вернет DefaultEnumType

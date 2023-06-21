@@ -9,7 +9,5 @@
         internal virtual IDictionary<string, string> Properties => null;
 
         public virtual IDictionary<string, string> Headers { get; set; }
-
-        internal virtual object Body { get; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using RBTB_ServiceAccount.Database.Entities;
+﻿using RBTB_ServiceAccount.Application.Abstractions.Entities;
 
 namespace RBTB_ServiceAccount.Application.Domains.Responses.Wallets
 {

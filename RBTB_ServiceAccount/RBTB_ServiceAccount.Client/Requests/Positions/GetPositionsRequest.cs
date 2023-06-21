@@ -35,7 +35,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Positions
                 res.AddSimpleStructIfNotNull( "userId", UserId );
                 res.AddEnumIfNotNull( "side", Side );
                 res.AddEnumIfNotNull( "positionStatus", PositionStatus );
-                res.Add( "symbol", Symbol );
+                res.AddStringIfNotEmptyOrWhiteSpace( "symbol", Symbol );
 
                 return res;
             }

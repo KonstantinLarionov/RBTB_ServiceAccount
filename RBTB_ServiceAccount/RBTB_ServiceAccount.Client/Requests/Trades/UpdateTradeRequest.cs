@@ -6,6 +6,20 @@ namespace RBTB_ServiceAccount.Client.Requests.Trades
 {
     public class UpdateTradeRequest : BaseRequest
     {
+        public UpdateTradeRequest( Guid id, Guid userId, decimal price, decimal count, OrderType orderType, Side side, string symbol, OrderStatus orderStatus, TimeInForce timeInForce, DateTime createdDate )
+        {
+            Id = id;
+            UserId = userId;
+            Price = price;
+            Count = count;
+            OrderType = orderType;
+            Side = side;
+            Symbol = symbol;
+            OrderStatus = orderStatus;
+            TimeInForce = timeInForce;
+            CreatedDate = createdDate;
+        }
+
         public Guid Id { get; set; }
 
         public Guid UserId { get; set; }

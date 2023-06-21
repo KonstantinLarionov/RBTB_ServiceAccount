@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RBTB_ServiceAccount.Database.Entities;
+using RBTB_ServiceAccount.Application.Abstractions.Entities;
 
 namespace RBTB_ServiceAccount.Database;
 

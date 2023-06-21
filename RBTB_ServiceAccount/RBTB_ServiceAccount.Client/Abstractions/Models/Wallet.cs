@@ -1,4 +1,4 @@
-namespace BTB_ServiceAccount.Abstractions.Models;
+namespace RBTB_ServiceAccount.Abstractions.Models;
 
 public class Wallet
 {

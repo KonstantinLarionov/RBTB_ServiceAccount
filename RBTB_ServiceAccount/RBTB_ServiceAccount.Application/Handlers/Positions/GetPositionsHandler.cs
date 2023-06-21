@@ -1,8 +1,8 @@
 using MediatR;
 using RBTB_ServiceAccount.Application.Domains.Requests.Positions;
 using RBTB_ServiceAccount.Application.Domains.Responses.Positions;
-using RBTB_ServiceAccount.Database.Entities;
-using RBTB_ServiceAccount.Database.Repositories;
+using RBTB_ServiceAccount.Application.Inerfaces;
+using RBTB_ServiceAccount.Application.Abstractions.Entities;
 
 namespace RBTB_ServiceAccount.Application.Handlers.Positions;
 

@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RBTB_ServiceAccount.Database.Entities;
+using RBTB_ServiceAccount.Application.Abstractions.Entities;
+using RBTB_ServiceAccount.Application.Inerfaces;
 using RBTB_ServiceAccount.Database.Repositories;
 
 namespace RBTB_ServiceAccount.Database;

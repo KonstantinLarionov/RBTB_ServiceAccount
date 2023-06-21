@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RBTB_ServiceAccount.Application.Domains.Responses.Trades;
-using RBTB_ServiceAccount.Database.Entities.Enums;
+using RBTB_ServiceAccount.Application.Abstractions.Entities.Enums;
 
 namespace RBTB_ServiceAccount.Application.Domains.Requests.Trades
 {

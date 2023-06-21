@@ -1,6 +1,5 @@
 ﻿using MediatR;
-using System.Net;
-using RBTB_ServiceAccount.Database.Entities.Enums;
+using RBTB_ServiceAccount.Application.Abstractions.Entities.Enums;
 using RBTB_ServiceAccount.Application.Domains.Responses.Positions;
 
 namespace RBTB_ServiceAccount.Application.Domains.Requests.Positions

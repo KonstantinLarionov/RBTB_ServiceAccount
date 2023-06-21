@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RBTB_ServiceAccount.Database.Entities;
+using RBTB_ServiceAccount.Application.Abstractions.Entities;
+using RBTB_ServiceAccount.Application.Inerfaces;
 
 namespace RBTB_ServiceAccount.Database.Repositories;
 
