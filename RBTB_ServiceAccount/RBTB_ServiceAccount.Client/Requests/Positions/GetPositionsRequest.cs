@@ -20,7 +20,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Positions
 
         public PositionStatus? PositionStatus { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         internal override string EndPoint => "positions";
 

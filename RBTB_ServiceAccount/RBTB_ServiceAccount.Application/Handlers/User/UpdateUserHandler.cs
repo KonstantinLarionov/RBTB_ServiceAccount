@@ -27,12 +27,12 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserRe
             Username = request.Username
         };
 
-        var createUser = _repositoryUsers.Create( user );
-        if ( createUser == 0 )
+        var updateUser = _repositoryUsers.Update( user );
+        if ( updateUser == 0 )
         {
             return new UpdateUserResponse() { Success = false };
         }
 
-        return new UpdateUserResponse();
+        return new UpdateUserResponse() { Data = user };
     }
 }

@@ -61,10 +61,9 @@ namespace RBTB_ServiceAccount.Client.Requests.Positions
                 res.AddDecimal( "price", Price );
                 res.Add( "symbol", Symbol );
                 res.AddDecimal( "count", Count );
-                res.AddDecimalIfNotNull( "price", Price );
                 res.AddEnum( "side", Side );
                 res.AddEnum( "positionStatus", PositionStatus );
-                res.AddSimpleStruct( "createdDate", CreatedDate );
+                res.AddDateTime( "createdDate", CreatedDate );
 
                 return res;
             }

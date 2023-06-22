@@ -19,7 +19,7 @@ public class GetPositionByIdHandler : IRequestHandler<GetPositionByIdRequest, Ge
     {
         var position = _repositoryPositions.FindById( request.PositionId );
 
-        if ( position != null )
+        if ( position == null )
         {
             return new GetPositionByIdResponse() { Success = false };
         }

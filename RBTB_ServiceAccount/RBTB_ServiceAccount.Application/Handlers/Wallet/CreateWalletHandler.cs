@@ -31,6 +31,6 @@ public class CreateWalletHandler : IRequestHandler<CreateWalletRequest, CreateWa
             return new CreateWalletResponse() { Success = false };
         }
 
-        return new CreateWalletResponse();
+        return new CreateWalletResponse() { Data = wallet.Id };
     }
 }

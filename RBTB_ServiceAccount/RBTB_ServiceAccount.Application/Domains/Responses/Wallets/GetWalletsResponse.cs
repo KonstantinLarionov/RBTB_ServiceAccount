@@ -2,7 +2,7 @@
 
 namespace RBTB_ServiceAccount.Application.Domains.Responses.Wallets
 {
-    public class GetWalletsResponse : BaseResponse<WalletEntity>
+    public class GetWalletsResponse : BaseResponse<WalletEntity[]>
     {
     }
 }

@@ -21,7 +21,7 @@ public class GetTradesHandler : IRequestHandler<GetTradesRequest, GetTradesRespo
 
         if ( !trades.Any() )
         {
-            return new GetTradesResponse() { Success = false };
+            return new GetTradesResponse();
         }
 
         if ( !string.IsNullOrEmpty( request.Symbol ) )

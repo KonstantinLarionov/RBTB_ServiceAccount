@@ -23,6 +23,6 @@ public class DeleteTradeHandler : IRequestHandler<DeleteTradeRequest, DeleteTrad
             return new DeleteTradeResponse() { Success = false };
         }
 
-        return new DeleteTradeResponse();
+        return new DeleteTradeResponse() { Data = request.TradeId };
     }
 }

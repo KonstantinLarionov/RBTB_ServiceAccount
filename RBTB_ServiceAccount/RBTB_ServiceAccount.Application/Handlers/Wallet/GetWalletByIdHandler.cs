@@ -19,7 +19,7 @@ public class GetWalletByIdHandler : IRequestHandler<GetWalletByIdRequest, GetWal
     {
         var Wallet = _repositoryWallets.FindById( request.WalletId );
 
-        if ( Wallet != null )
+        if ( Wallet == null )
         {
             return new GetWalletByIdResponse() { Success = false };
         }

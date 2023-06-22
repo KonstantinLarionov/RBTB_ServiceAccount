@@ -56,7 +56,7 @@ namespace RBTB_ServiceAccount.Client.Client
             return response;
         }
 
-        public BaseResponse<List<Position>> GetPositions( Guid? userId, Side? side, PositionStatus? positionStatus, string symbol )
+        public BaseResponse<List<Position>> GetPositions( Guid? userId, Side? side, PositionStatus? positionStatus, string? symbol )
         {
             var request = new GetPositionsRequest( userId, side, positionStatus, symbol );
 

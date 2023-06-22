@@ -23,6 +23,6 @@ public class DeletePositionHandler : IRequestHandler<DeletePositionRequest, Dele
             return new DeletePositionResponse() { Success = false };
         }
 
-        return new DeletePositionResponse();
+        return new DeletePositionResponse() { Data = request.PositionId };
     }
 }

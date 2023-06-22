@@ -33,6 +33,6 @@ public class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserRe
             return new CreateUserResponse() { Success = false };
         }
 
-        return new CreateUserResponse();
+        return new CreateUserResponse() { Data = user.Id };
     }
 }

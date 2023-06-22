@@ -17,7 +17,7 @@ public class UpdateTradeHandler : IRequestHandler<UpdateTradeRequest, UpdateTrad
 
     public async Task<UpdateTradeResponse> Handle( UpdateTradeRequest request, CancellationToken cancellationToken )
     {
-        var Trade = new TradeEntity()
+        var trade = new TradeEntity()
         {
             Id = request.Id,
             UserId = request.UserId,
@@ -30,12 +30,12 @@ public class UpdateTradeHandler : IRequestHandler<UpdateTradeRequest, UpdateTrad
             TimeInForce = request.TimeInForce
         };
 
-        var createTrade = _repositoryTrades.Create( Trade );
-        if ( createTrade == 0 )
+        var updateTrade = _repositoryTrades.Update( trade );
+        if ( updateTrade == 0 )
         {
             return new UpdateTradeResponse() { Success = false };
         }
 
-        return new UpdateTradeResponse();
+        return new UpdateTradeResponse() { Data = trade };
     }
 }

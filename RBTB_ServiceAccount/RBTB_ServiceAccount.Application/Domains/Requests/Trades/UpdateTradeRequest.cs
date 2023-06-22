@@ -18,7 +18,7 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Trades
 
         public Side Side { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
 

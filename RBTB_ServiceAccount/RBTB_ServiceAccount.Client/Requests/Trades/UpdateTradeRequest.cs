@@ -59,7 +59,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Trades
                 res.Add( "symbol", Symbol );
                 res.AddEnum( "orderStatus", OrderStatus );
                 res.AddEnum( "timeInForce", TimeInForce );
-                res.AddSimpleStruct( "createdDate", CreatedDate );
+                res.AddDateTime( "createdDate", CreatedDate );
 
                 return res;
             }

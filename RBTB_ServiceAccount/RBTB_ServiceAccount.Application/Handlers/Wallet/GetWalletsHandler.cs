@@ -1,29 +1,39 @@
 using MediatR;
-using RBTB_ServiceAccount.Application.Domains.Requests.Users;
-using RBTB_ServiceAccount.Application.Domains.Responses.Users;
 using RBTB_ServiceAccount.Application.Abstractions.Entities;
 using RBTB_ServiceAccount.Application.Inerfaces;
+using RBTB_ServiceAccount.Application.Domains.Responses.Wallets;
+using RBTB_ServiceAccount.Application.Domains.Requests.Wallets;
 
 namespace RBTB_ServiceAccount.Application.Handlers.Wallet;
 
-public class GetWalletsHandler : IRequestHandler<GetUsersRequest, GetUsersResponse>
+public class GetWalletsHandler : IRequestHandler<GetWalletsRequest, GetWalletsResponse>
 {
-    private readonly IRepository<UserEntity> _repositoryUsers;
+    private readonly IRepository<WalletEntity> _repositoryWallets;
 
-    public GetWalletsHandler( IRepository<UserEntity> repositoryUsers )
+    public GetWalletsHandler( IRepository<WalletEntity> repositoryWallets )
     {
-        _repositoryUsers = repositoryUsers;
+        _repositoryWallets = repositoryWallets;
     }
 
-    public async Task<GetUsersResponse> Handle( GetUsersRequest request, CancellationToken cancellationToken )
+    public async Task<GetWalletsResponse> Handle( GetWalletsRequest request, CancellationToken cancellationToken )
     {
-        var users = _repositoryUsers.Get();
+        var wallets = _repositoryWallets.Get();
 
-        if ( !users.Any() )
+        if ( !wallets.Any() )
         {
-            return new GetUsersResponse() { Success = false };
+            return new GetWalletsResponse();
         }
 
-        return new GetUsersResponse() { Data = users.ToArray() };
+        if ( !string.IsNullOrEmpty( request.Symbol ) )
+        {
+            wallets = wallets.Where( w => w.Symbol == request.Symbol );
+        }
+
+        if ( request.UserId is not null && request.UserId != Guid.Empty )
+        {
+            wallets = wallets.Where( w => w.UserId == request.UserId );
+        }
+
+        return new GetWalletsResponse() { Data = wallets.ToArray() };
     }
 }

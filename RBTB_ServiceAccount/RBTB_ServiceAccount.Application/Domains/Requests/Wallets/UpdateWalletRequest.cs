@@ -9,7 +9,7 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Wallets
 
         public Guid UserId { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         public decimal Balance { get; set; }
     }

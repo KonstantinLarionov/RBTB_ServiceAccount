@@ -58,7 +58,7 @@ namespace RBTB_ServiceAccount.Client.Client
             return response;
         }
 
-        public BaseResponse<List<Trade>> GetTrades( Guid? userId, OrderType? orderType, Side? side, string symbol, OrderStatus? orderStatus )
+        public BaseResponse<List<Trade>> GetTrades( Guid? userId, OrderType? orderType, Side? side, string? symbol, OrderStatus? orderStatus )
         {
             var request = new GetTradesRequest( userId, orderType, side, symbol, orderStatus );
 

@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder( args );
 builder.Services.AddControllers()
     .AddJsonOptions( o =>
     {
+        o.JsonSerializerOptions.Converters.Add( new JsonStringEnumConverter() );
         o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     } );
 
@@ -26,8 +27,8 @@ builder.Services.AddSwaggerGen( swagger =>
     swagger.SwaggerDoc( "v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "JWT Token Authentication API",
-        Description = "ASP.NET Core 5.0 Web API"
+        Title = "RBTB_ServiceAccount API",
+        Description = "Список всех запросов сервиса RBTB_ServiceAccount"
     } );
     // To Enable authorization using Swagger (JWT)
     swagger.AddSecurityDefinition( "Bearer", new OpenApiSecurityScheme()

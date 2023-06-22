@@ -12,6 +12,6 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Positions
 
         public PositionStatus? PositionStatus { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
     }
 }

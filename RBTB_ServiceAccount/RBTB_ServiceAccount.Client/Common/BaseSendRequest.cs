@@ -17,7 +17,9 @@ namespace RBTB_ServiceAccount.Client.Common
             //return await client.ExecuteAsync( request );
 
             var method = baseRequest.Method.GetMethod();
-            var request = new RestRequest( baseRequest.EndPoint + baseRequest.Properties.GenerateParametersString(), method );
+
+            var endpoint = method == Method.GET ? baseRequest.Properties.GenerateParametersString() : string.Empty;
+            var request = new RestRequest( baseRequest.EndPoint + endpoint, method );
 
             if ( method != Method.GET && baseRequest.Properties is not null )
             {

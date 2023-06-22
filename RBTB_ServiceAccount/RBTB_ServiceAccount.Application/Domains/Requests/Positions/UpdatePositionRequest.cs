@@ -14,7 +14,7 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Positions
 
         public decimal Price { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         public decimal Count { get; set; }
 

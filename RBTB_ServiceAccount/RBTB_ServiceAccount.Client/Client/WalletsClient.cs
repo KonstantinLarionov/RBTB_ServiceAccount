@@ -41,7 +41,7 @@ namespace RBTB_ServiceAccount.Client.Client
             return response;
         }
 
-        public BaseResponse<List<Wallet>> GetWallets( Guid userId, string symbol )
+        public BaseResponse<List<Wallet>> GetWallets( Guid? userId, string? symbol )
         {
             var request = new GetWalletsRequest( userId, symbol );
 

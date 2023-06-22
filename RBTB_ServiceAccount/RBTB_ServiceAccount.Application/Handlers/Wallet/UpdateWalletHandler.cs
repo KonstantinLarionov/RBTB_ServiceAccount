@@ -25,12 +25,12 @@ public class UpdateWalletHandler : IRequestHandler<UpdateWalletRequest, UpdateWa
             Balance = request.Balance
         };
 
-        var createWallet = _repositoryWallets.Create( wallet );
-        if ( createWallet == 0 )
+        var updateWallet = _repositoryWallets.Update( wallet );
+        if ( updateWallet == 0 )
         {
             return new UpdateWalletResponse() { Success = false };
         }
 
-        return new UpdateWalletResponse();
+        return new UpdateWalletResponse() { Data = wallet };
     }
 }

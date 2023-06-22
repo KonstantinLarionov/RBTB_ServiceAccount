@@ -35,6 +35,6 @@ public class CreatePositionHandler : IRequestHandler<CreatePositionRequest, Crea
             return new CreatePositionResponse() { Success = false };
         }
 
-        return new CreatePositionResponse();
+        return new CreatePositionResponse() { Data = position.Id };
     }
 }

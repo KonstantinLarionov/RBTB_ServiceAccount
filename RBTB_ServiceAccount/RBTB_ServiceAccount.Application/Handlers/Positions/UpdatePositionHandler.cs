@@ -26,15 +26,16 @@ public class UpdatePositionHandler : IRequestHandler<UpdatePositionRequest, Upda
             CreatedDate = request.CreatedDate,
             PositionStatus = request.PositionStatus,
             Price = request.Price,
-            TradesId = request.TradesId
+            TradesId = request.TradesId,
+            Count = request.Count
         };
 
-        var createPosition = _repositoryPositions.Create( position );
-        if ( createPosition == 0 )
+        var updatePosition = _repositoryPositions.Update( position );
+        if ( updatePosition == 0 )
         {
             return new UpdatePositionResponse() { Success = false };
         }
 
-        return new UpdatePositionResponse();
+        return new UpdatePositionResponse() { Data = position };
     }
 }

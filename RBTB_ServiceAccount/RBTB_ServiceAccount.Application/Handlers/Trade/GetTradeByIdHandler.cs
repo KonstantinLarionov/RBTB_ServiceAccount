@@ -19,7 +19,7 @@ public class GetTradeByIdHandler : IRequestHandler<GetTradeByIdRequest, GetTrade
     {
         var trade = _repositoryTrades.FindById( request.TradeId );
 
-        if ( trade != null )
+        if ( trade == null )
         {
             return new GetTradeByIdResponse() { Success = false };
         }

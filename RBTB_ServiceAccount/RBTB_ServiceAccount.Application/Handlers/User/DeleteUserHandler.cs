@@ -23,6 +23,6 @@ public class DeleteUserHandler : IRequestHandler<DeleteUserRequest, DeleteUserRe
             return new DeleteUserResponse() { Success = false };
         }
 
-        return new DeleteUserResponse();
+        return new DeleteUserResponse() { Data = request.UserId };
     }
 }

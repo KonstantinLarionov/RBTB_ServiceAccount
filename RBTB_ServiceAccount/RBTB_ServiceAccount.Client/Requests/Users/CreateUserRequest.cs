@@ -37,7 +37,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Users
                 res.Add( "username", Username );
                 res.Add( "login", Login );
                 res.Add( "password", Password );
-                res.AddSimpleStruct( "createdDate", CreatedDate );
+                res.AddDateTime( "createdDate", CreatedDate );
                 res.AddSimpleStruct( "refferalFrom", RefferalFrom );
 
                 return res;

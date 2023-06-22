@@ -4,8 +4,9 @@ namespace RBTB_ServiceAccount.Client.Client
 {
     public class ServiceAccountClient
     {
-        public ServiceAccountClient(IRestClient client) 
+        public ServiceAccountClient(string baseUrl) 
         {
+            IRestClient client = new RestClient( baseUrl );
             Positions = new PositionsClient(client);
             Trades = new TradesClient( client );
             Users = new UsersClient( client );

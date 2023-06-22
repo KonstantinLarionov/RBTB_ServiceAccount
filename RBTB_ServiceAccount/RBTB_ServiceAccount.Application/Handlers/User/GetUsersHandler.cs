@@ -21,7 +21,7 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
 
         if ( !users.Any() )
         {
-            return new GetUsersResponse() { Success = false };
+            return new GetUsersResponse();
         }
 
         return new GetUsersResponse() { Data = users.ToArray() };

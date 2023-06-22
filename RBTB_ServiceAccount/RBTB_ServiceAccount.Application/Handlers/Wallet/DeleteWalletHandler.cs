@@ -23,6 +23,6 @@ public class DeleteWalletHandler : IRequestHandler<DeleteWalletRequest, DeleteWa
             return new DeleteWalletResponse() { Success = false };
         }
 
-        return new DeleteWalletResponse();
+        return new DeleteWalletResponse() { Data = request.WalletId };
     }
 }

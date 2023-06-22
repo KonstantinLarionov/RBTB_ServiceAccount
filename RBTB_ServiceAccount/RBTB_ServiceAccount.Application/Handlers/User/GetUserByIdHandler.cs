@@ -19,7 +19,7 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, GetUserByI
     {
         var user = _repositoryUsers.FindById( request.UserId );
 
-        if ( user != null )
+        if ( user == null )
         {
             return new GetUserByIdResponse() { Success = false };
         }

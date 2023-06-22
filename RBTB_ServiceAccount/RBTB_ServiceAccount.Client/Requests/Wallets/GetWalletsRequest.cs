@@ -5,15 +5,15 @@ namespace RBTB_ServiceAccount.Client.Requests.Wallets
 {
     public class GetWalletsRequest : BaseRequest
     {
-        public GetWalletsRequest( Guid userId, string symbol )
+        public GetWalletsRequest( Guid? userId, string? symbol )
         {
             UserId = userId;
             Symbol = symbol;
         }
 
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         internal override string EndPoint => "wallets";
 
@@ -25,8 +25,8 @@ namespace RBTB_ServiceAccount.Client.Requests.Wallets
             {
                 var res = new Dictionary<string, string>();
 
-                res.AddSimpleStruct( "userId", UserId );
-                res.Add( "symbol", Symbol );
+                res.AddSimpleStructIfNotNull( "userId", UserId );
+                res.AddStringIfNotEmptyOrWhiteSpace( "symbol", Symbol );
 
                 return res;
             }

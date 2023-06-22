@@ -6,7 +6,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Trades
 {
     public class GetTradesRequest : BaseRequest
     {
-        public GetTradesRequest( Guid? userId, OrderType? orderType, Side? side, string symbol, OrderStatus? orderStatus )
+        public GetTradesRequest( Guid? userId, OrderType? orderType, Side? side, string? symbol, OrderStatus? orderStatus )
         {
             UserId = userId;
             OrderType = orderType;
@@ -21,7 +21,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Trades
 
         public Side? Side { get; set; }
 
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         public OrderStatus? OrderStatus { get; set; }
 
@@ -38,7 +38,7 @@ namespace RBTB_ServiceAccount.Client.Requests.Trades
                 res.AddSimpleStructIfNotNull( "userId", UserId );
                 res.AddEnumIfNotNull( "orderType", OrderType );
                 res.AddEnumIfNotNull( "side", Side );
-                res.Add( "symbol", Symbol );
+                res.AddStringIfNotEmptyOrWhiteSpace( "symbol", Symbol );
                 res.AddEnumIfNotNull( "orderStatus", OrderStatus );
 
                 return res;

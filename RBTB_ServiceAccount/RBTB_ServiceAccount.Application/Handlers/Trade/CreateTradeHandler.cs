@@ -36,6 +36,6 @@ public class CreateTradeHandler : IRequestHandler<CreateTradeRequest, CreateTrad
             return new CreateTradeResponse() { Success = false };
         }
 
-        return new CreateTradeResponse();
+        return new CreateTradeResponse() { Data = trade.Id };
     }
 }

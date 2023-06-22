@@ -21,7 +21,7 @@ public class GetPositionsHandler : IRequestHandler<GetPositionsRequest, GetPosit
 
         if ( !positions.Any() )
         {
-            return new GetPositionsResponse() { Success = false };
+            return new GetPositionsResponse();
         }
 
         if ( !string.IsNullOrEmpty(request.Symbol) )
