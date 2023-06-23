@@ -10,9 +10,9 @@ public class ServiceAccountContext : DbContext
     public DbSet<PositionEntity> Positions { get; set; }
     public DbSet<WalletEntity> Wallet { get; set; }
 
-    public ServiceAccountContext() { }
+    public ServiceAccountContext() { Database.EnsureCreated(); }
 
-    public ServiceAccountContext( DbContextOptions<ServiceAccountContext> options ) : base( options ) { }
+    public ServiceAccountContext( DbContextOptions<ServiceAccountContext> options ) : base( options ) { Database.EnsureCreated(); }
 
     protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
     {
