@@ -9,15 +9,14 @@ namespace RBTB_ServiceAccount.Database;
 
 public static class ServiceCollection
 {
-    public static void AddInfrastructureDataBase( this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructureDataBase( this IServiceCollection service, IConfiguration configuration)
     {
-        services.AddDbContext<ServiceAccountContext>( options =>
-                options.UseMySql( configuration.GetConnectionString( "DBConnection" ),
-                new MySqlServerVersion( new Version( 5, 6, 45 ) ) ) );
+        service.AddDbContext<ServiceAccountContext>(
+            options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")), ServiceLifetime.Singleton);
 
-        services.AddTransient<IRepository<PositionEntity>, PositionsRepository>();
-        services.AddTransient<IRepository<TradeEntity>, TradesRepository>();
-        services.AddTransient<IRepository<UserEntity>, UsersRepository>();
-        services.AddTransient<IRepository<WalletEntity>, WalletRepository>();
+        service.AddTransient<IRepository<PositionEntity>, PositionsRepository>();
+        service.AddTransient<IRepository<TradeEntity>, TradesRepository>();
+        service.AddTransient<IRepository<UserEntity>, UsersRepository>();
+        service.AddTransient<IRepository<WalletEntity>, WalletRepository>();
     }
 }

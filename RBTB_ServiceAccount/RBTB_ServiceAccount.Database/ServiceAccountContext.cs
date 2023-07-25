@@ -10,15 +10,12 @@ public class ServiceAccountContext : DbContext
     public DbSet<PositionEntity> Positions { get; set; }
     public DbSet<WalletEntity> Wallet { get; set; }
 
-    public ServiceAccountContext() { Database.EnsureCreated(); }
-
-    public ServiceAccountContext( DbContextOptions<ServiceAccountContext> options ) : base( options ) { Database.EnsureCreated(); }
-
-    protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
+    public ServiceAccountContext(DbContextOptions<ServiceAccountContext> options) : base(options)
     {
     }
 
-    protected override void OnModelCreating( ModelBuilder modelBuilder )
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=q1w2e3r4");
     }
 }

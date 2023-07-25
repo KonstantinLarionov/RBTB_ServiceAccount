@@ -8,7 +8,7 @@ public class Position
 
     public Guid UserId { get; set; }
 
-    public Guid TradesId { get; set; }
+    public Guid TradeId { get; set; }
 
     public decimal Price { get; set; }
 

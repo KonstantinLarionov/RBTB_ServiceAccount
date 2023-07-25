@@ -26,7 +26,7 @@ public class CreatePositionHandler : IRequestHandler<CreatePositionRequest, Crea
             CreatedDate = request.CreatedDate,
             PositionStatus = request.PositionStatus,
             Price = request.Price,
-            TradesId = request.TradesId
+            TradeId = request.TradesId
         };
 
         var createPosition = _repositoryPositions.Create( position );

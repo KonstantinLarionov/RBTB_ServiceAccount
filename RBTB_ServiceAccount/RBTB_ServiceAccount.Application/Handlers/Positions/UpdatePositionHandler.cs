@@ -26,7 +26,7 @@ public class UpdatePositionHandler : IRequestHandler<UpdatePositionRequest, Upda
             CreatedDate = request.CreatedDate,
             PositionStatus = request.PositionStatus,
             Price = request.Price,
-            TradesId = request.TradesId,
+            TradeId = request.TradesId,
             Count = request.Count
         };
 
