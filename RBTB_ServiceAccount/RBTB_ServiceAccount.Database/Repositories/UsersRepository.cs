@@ -12,6 +12,7 @@ public class UsersRepository : IRepository<UserEntity>
     public UsersRepository( ServiceAccountContext context )
     {
         _context = context;
+		_context.Database.EnsureCreated();
         _dbSet = context.Set<UserEntity>();
     }
 

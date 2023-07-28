@@ -16,6 +16,6 @@ public class ServiceAccountContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=q1w2e3r4");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=ServiceAccounts;Username=postgres;Password=q1w2e3r4");
     }
 }
