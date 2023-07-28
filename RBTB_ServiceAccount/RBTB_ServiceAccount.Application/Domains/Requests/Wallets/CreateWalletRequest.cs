@@ -10,5 +10,9 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Wallets
         public string? Symbol { get; set; }
 
         public decimal Balance { get; set; }
+
+        public string Market { get; set; }
+
+        public DateTime DateOfRecording { get; set; }
     }
 }

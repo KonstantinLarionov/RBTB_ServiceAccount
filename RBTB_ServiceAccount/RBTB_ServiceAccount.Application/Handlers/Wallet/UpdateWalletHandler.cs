@@ -22,7 +22,9 @@ public class UpdateWalletHandler : IRequestHandler<UpdateWalletRequest, UpdateWa
             Id = request.Id,
             UserId = request.UserId,
             Symbol = request.Symbol,
-            Balance = request.Balance
+            Balance = request.Balance,
+            Market = request.Market,
+            DateOfRecording = request.DateOfRecording
         };
 
         var updateWallet = _repositoryWallets.Update( wallet );

@@ -22,7 +22,9 @@ public class CreateWalletHandler : IRequestHandler<CreateWalletRequest, CreateWa
             Id = Guid.NewGuid(),
             Balance = request.Balance,
             Symbol = request.Symbol,
-            UserId = request.UserId
+            UserId = request.UserId,
+            DateOfRecording = request.DateOfRecording,
+            Market = request.Market
         };
 
         var createWallet = _repositoryWallets.Create( wallet );
