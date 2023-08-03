@@ -15,4 +15,5 @@ public class WalletEntity
     public DateTime DateOfRecording { get; set; }
 
     public decimal Balance { get; set; }
+    public DateTime DateOfCreate { get; set; }
 }

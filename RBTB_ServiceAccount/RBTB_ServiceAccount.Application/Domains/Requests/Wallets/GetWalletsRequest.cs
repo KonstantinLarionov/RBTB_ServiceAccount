@@ -9,9 +9,9 @@ namespace RBTB_ServiceAccount.Application.Domains.Requests.Wallets
 
         public string? Symbol { get; set; }
 
-        public DateTime DateBegin { get; set; }
+        public DateTime DateFrom { get; set; }
 
-        public DateTime? DateEnd { get; set; }
+        public DateTime? DateTo { get; set; }
         public string? Market { get; set; }
     }
 }

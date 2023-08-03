@@ -38,13 +38,13 @@ public class GetWalletsHandler : IRequestHandler<GetWalletsRequest, GetWalletsRe
         {
             wallets = wallets.Where(w => w.Market == request.Market.Trim());
         }
-
-        if (request.DateEnd is not null)
+        
+        if (request.DateTo is not null)
         {
-            wallets = wallets.Where(w => w.DateOfRecording >= request.DateBegin && w.DateOfRecording <= request.DateEnd);
+            wallets = wallets.Where(w => w.DateOfCreate >= request.DateFrom && w.DateOfCreate <= request.DateTo);
         }
-
-        wallets = wallets.Where(w => w.DateOfRecording >= request.DateBegin && w.DateOfRecording <= DateTime.Now);
+        else
+            wallets = wallets.Where(w => w.DateOfCreate >= request.DateFrom && w.DateOfCreate <= DateTime.Now);
 
         return new GetWalletsResponse() { Data = wallets.ToArray() };
     }
