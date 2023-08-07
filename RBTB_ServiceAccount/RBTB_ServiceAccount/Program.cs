@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using RBTB_ServiceAccount.Application;
 using RBTB_ServiceAccount.Database;
 
@@ -18,6 +18,10 @@ builder.Services.AddControllers()
 
 builder.Services.AddInfrastructureDataBase( builder.Configuration );
 builder.Services.AddApplication();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer();
+builder.Services.AddAuthorization();
 
 #region Swagger Configuration
 
@@ -70,6 +74,8 @@ if ( app.Environment.IsDevelopment() )
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.UseAuthorization();
 

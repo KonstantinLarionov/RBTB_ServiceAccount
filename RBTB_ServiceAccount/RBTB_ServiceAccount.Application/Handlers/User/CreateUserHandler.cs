@@ -3,6 +3,8 @@ using RBTB_ServiceAccount.Application.Domains.Requests.Users;
 using RBTB_ServiceAccount.Application.Domains.Responses.Users;
 using RBTB_ServiceAccount.Application.Abstractions.Entities;
 using RBTB_ServiceAccount.Application.Inerfaces;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RBTB_ServiceAccount.Application.Handlers.User;
 
@@ -22,7 +24,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserRe
             Id = Guid.NewGuid(),
             CreatedDate = request.CreatedDate,
             Login = request.Login,
-            Password = request.Password,
+            Password = CalculateSHA256(request.Password),
             RefferalFrom = request.RefferalFrom,
             Username = request.Username
         };
@@ -34,5 +36,15 @@ public class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserRe
         }
 
         return new CreateUserResponse() { Data = user.Id };
+
+        string CalculateSHA256(string s)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {                
+                byte[] hashValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(s));
+                
+                return BitConverter.ToString(hashValue).Replace("-", "").ToUpper();
+            }
+        }
     }
 }

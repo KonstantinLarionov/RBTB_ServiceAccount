@@ -98,4 +98,20 @@ public class UsersController : ControllerBase
 
         return BadRequest( resp );
     }
+
+    [HttpPost]
+    [Route("Login/{userId}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "200", typeof(LoginUserResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "400", typeof(LoginUserResponse))]
+    public async Task<IActionResult> LoginUser([FromBody] LoginUserRequest request)
+    {
+        var resp = await _mediator.Send(request);
+
+        if (resp.Success)
+        {
+            return Ok(resp);
+        }
+
+        return BadRequest(resp);
+    }
 }
