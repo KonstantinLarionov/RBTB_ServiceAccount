@@ -98,4 +98,20 @@ public class UsersController : ControllerBase
 
         return BadRequest( resp );
     }
+
+    [HttpPost]
+    [Route("delete/{userId}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "200", typeof(DeleteUserResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "400", typeof(DeleteUserResponse))]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
+    {
+        var resp = await _mediator.Send(request);
+
+        if (resp.Success)
+        {
+            return Ok(resp);
+        }
+
+        return BadRequest(resp);
+    }
 }
