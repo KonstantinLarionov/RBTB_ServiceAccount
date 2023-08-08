@@ -31,7 +31,7 @@ namespace RBTB_ServiceAccount.Application.Handlers.User
         {
             var login = request.Login;
             var password = CalculateSHA256(request.Password);
-            var user = _repositoryUsers.Get().Where(u => u.Login == login && u.Password == password);
+            var user = _repositoryUsers.Get().FirstOrDefault(u => u.Login == login && u.Password == password);            
             if (user == null)
             {
                 return new LoginUserResponse() { Success = false };
@@ -54,11 +54,11 @@ namespace RBTB_ServiceAccount.Application.Handlers.User
         private string GetToken(string login)
         {   
             var identity = GetClimes(login);
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
+            var now = DateTime.UtcNow;            
             var jwt = new JwtSecurityToken(
-                    issuer: JWTResources.ISSUER,
-                    audience: JWTResources.AUDIENCE,
+                //TODO настртоить валидацию
+                    /*issuer: JWTResources.ISSUER,
+                    audience: JWTResources.AUDIENCE,*/
                     notBefore: now,
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(double.Parse(JWTResources.LIFETIME))),
@@ -73,7 +73,7 @@ namespace RBTB_ServiceAccount.Application.Handlers.User
 
             return JsonConvert.SerializeObject(response);
         }
-        private ClaimsIdentity GetClimes(string login) //TODO сделать клаймы
+        private ClaimsIdentity GetClimes(string login)
         {           
                 var claims = new List<Claim>
                 {

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RBTB_ServiceAccount.Application.Domains.Requests.Wallets;
@@ -8,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace RBTB_ServiceAccount.API;
 
 [ApiController]
+[Authorize]
 [Route("wallets")]
 [Produces("application/json")]
 public class WalletsController : ControllerBase

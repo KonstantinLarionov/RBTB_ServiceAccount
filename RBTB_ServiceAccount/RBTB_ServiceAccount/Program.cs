@@ -2,8 +2,11 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using RBTB_ServiceAccount.Application;
 using RBTB_ServiceAccount.Database;
-
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder( args );
 
@@ -19,9 +22,27 @@ builder.Services.AddControllers()
 builder.Services.AddInfrastructureDataBase( builder.Configuration );
 builder.Services.AddApplication();
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {                    
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JWTResources.KEY)),
+                    ValidateIssuerSigningKey = true,
+                };
+            });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+        .RequireAuthenticatedUser()
+        .Build();
+});
 
 #region Swagger Configuration
 
@@ -74,8 +95,6 @@ if ( app.Environment.IsDevelopment() )
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.UseAuthorization();
 

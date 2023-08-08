@@ -22,7 +22,7 @@ namespace RBTB_ServiceAccount.Application {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class JWTResources {
+    public class JWTResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -81,7 +81,7 @@ namespace RBTB_ServiceAccount.Application {
         /// <summary>
         ///   Ищет локализованную строку, похожую на mysupersecret_secretkey!123testkey.
         /// </summary>
-        internal static string KEY {
+        public static string KEY {
             get {
                 return ResourceManager.GetString("KEY", resourceCulture);
             }

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RBTB_ServiceAccount.Application.Domains.Requests.Users;
@@ -8,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace RBTB_ServiceAccount.API;
 
 [ApiController]
+[Authorize]
 [Route("users")]
 [Produces("application/json")]
 public class UsersController : ControllerBase
@@ -18,8 +20,8 @@ public class UsersController : ControllerBase
     {
         _mediator = mediator ?? throw new ArgumentNullException( nameof( mediator ) );
     }
-
-    [HttpGet]
+    
+    [HttpGet]    
     [Route("")]
     [SwaggerResponse(StatusCodes.Status200OK, "200", typeof(GetUsersResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest," 400",typeof( GetUsersResponse ) )]
@@ -35,7 +37,7 @@ public class UsersController : ControllerBase
         return BadRequest( resp );
     }
 
-    [HttpGet]
+    [HttpGet]    
     [Route( "{userId}" )]
     [SwaggerResponse( StatusCodes.Status200OK, "200", typeof( GetUserByIdResponse ) )]
     [SwaggerResponse( StatusCodes.Status400BadRequest, "400", typeof( GetUserByIdResponse ) )]
@@ -52,6 +54,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [Route( "create" )]
     [SwaggerResponse( StatusCodes.Status200OK, "200", typeof( CreateUserResponse ) )]
     [SwaggerResponse( StatusCodes.Status400BadRequest, "400", typeof( CreateUserResponse ) )]
@@ -67,7 +70,7 @@ public class UsersController : ControllerBase
         return BadRequest( resp );
     }
 
-    [HttpPut]
+    [HttpPut]    
     [Route( "update" )]
     [SwaggerResponse( StatusCodes.Status200OK, "200", typeof( UpdateUserResponse ) )]
     [SwaggerResponse( StatusCodes.Status400BadRequest, "400", typeof( UpdateUserResponse ) )]
@@ -83,7 +86,7 @@ public class UsersController : ControllerBase
         return BadRequest( resp );
     }
 
-    [HttpDelete]
+    [HttpDelete]    
     [Route( "delete/{userId}" )]
     [SwaggerResponse( StatusCodes.Status200OK, "200", typeof( DeleteUserResponse ) )]
     [SwaggerResponse( StatusCodes.Status400BadRequest, "400", typeof( DeleteUserResponse ) )]
@@ -99,8 +102,10 @@ public class UsersController : ControllerBase
         return BadRequest( resp );
     }
 
+
     [HttpPost]
-    [Route("Login/{userId}")]
+    [AllowAnonymous]
+    [Route("Login")]
     [SwaggerResponse(StatusCodes.Status200OK, "200", typeof(LoginUserResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "400", typeof(LoginUserResponse))]
     public async Task<IActionResult> LoginUser([FromBody] LoginUserRequest request)
