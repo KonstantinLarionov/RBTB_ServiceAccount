@@ -31,7 +31,7 @@ namespace RBTB_ServiceAccount.Application.Handlers.User
         {
             var login = request.Login;
             var password = CalculateSHA256(request.Password);
-            var user = _repositoryUsers.Get().FirstOrDefault(u => u.Login == login && u.Password == password);            
+            var user = _repositoryUsers.Get().SingleOrDefault(u => u.Login == login && u.Password == password);            
             if (user == null)
             {
                 return new LoginUserResponse() { Success = false };
