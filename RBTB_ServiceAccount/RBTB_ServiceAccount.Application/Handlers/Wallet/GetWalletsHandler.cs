@@ -45,7 +45,7 @@ public class GetWalletsHandler : IRequestHandler<GetWalletsRequest, GetWalletsRe
         }
         else
             wallets = wallets.Where(w => w.DateOfCreate >= request.DateFrom && w.DateOfCreate <= DateTime.Now);
-
+       
         return new GetWalletsResponse() { Data = wallets.ToArray() };
     }
 }

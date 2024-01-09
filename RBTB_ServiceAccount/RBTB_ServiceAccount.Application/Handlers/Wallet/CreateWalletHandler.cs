@@ -24,7 +24,8 @@ public class CreateWalletHandler : IRequestHandler<CreateWalletRequest, CreateWa
             Symbol = request.Symbol,
             UserId = request.UserId,
             DateOfRecording = request.DateOfRecording,
-            Market = request.Market
+            Market = request.Market,
+            DateOfCreate = DateTime.Now
         };
 
         var createWallet = _repositoryWallets.Create( wallet );

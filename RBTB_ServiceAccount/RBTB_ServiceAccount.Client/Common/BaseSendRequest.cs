@@ -21,7 +21,7 @@ namespace RBTB_ServiceAccount.Client.Common
             var endpoint = method == Method.GET ? baseRequest.Properties.GenerateParametersString() : string.Empty;
             var request = new RestRequest( baseRequest.EndPoint + endpoint, method );
 
-            if ( method != Method.GET && baseRequest.Properties is not null )
+           if ( method != Method.GET && baseRequest.Properties is not null )
             {
                 request.AddJsonBody( baseRequest.Properties );
             }
