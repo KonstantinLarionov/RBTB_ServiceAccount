@@ -12,7 +12,7 @@ public static class ServiceCollection
     public static void AddInfrastructureDataBase( this IServiceCollection service, IConfiguration configuration)
     {
         service.AddDbContext<ServiceAccountContext>(
-            options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")), ServiceLifetime.Singleton);
+            options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")), ServiceLifetime.Transient);
 
         service.AddTransient<IRepository<PositionEntity>, PositionsRepository>();
         service.AddTransient<IRepository<TradeEntity>, TradesRepository>();
