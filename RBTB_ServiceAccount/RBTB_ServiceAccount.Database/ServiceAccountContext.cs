@@ -10,12 +10,16 @@ public class ServiceAccountContext : DbContext
     public DbSet<PositionEntity> Positions { get; set; }
     public DbSet<WalletEntity> Wallet { get; set; }
 
+    static ServiceAccountContext()
+    {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
     public ServiceAccountContext(DbContextOptions<ServiceAccountContext> options) : base(options)
     {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=ServiceAccounts;Username=postgres;Password=q1w2e3r4");
+        optionsBuilder.UseNpgsql("Host=host.docker.internal;Port=5432;Database=ServiceAccounts;Username=postgres;Password=admin");
     }
 }
