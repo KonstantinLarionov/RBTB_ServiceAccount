@@ -49,6 +49,26 @@ public class GetTradesHandler : IRequestHandler<GetTradesRequest, GetTradesRespo
             trades = trades.Where( p => p.UserId == request.UserId );
         }
 
+        if(request.Sort is not null)
+        {
+            if (request.Sort == Domains.Abstractions.Entities.Enums.SortEnum.Ascending)
+            {
+                trades = trades.OrderBy(a => a.CreatedDate);
+            }
+            else
+            {
+                trades = trades.OrderByDescending(a => a.CreatedDate);
+            }
+        }
+
+        if (request.DateTo is not null)
+        {
+            trades = trades.Where(w => w.CreatedDate >= request.DateFrom && w.CreatedDate <= request.DateTo);
+        }
+        else
+            trades = trades.Where(w => w.CreatedDate >= request.DateFrom && w.CreatedDate <= DateTime.Now);
+
+
         return new GetTradesResponse() { Data = trades.ToArray() };
     }
 }

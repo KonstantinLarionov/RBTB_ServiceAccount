@@ -17,9 +17,4 @@ public class ServiceAccountContext : DbContext
     public ServiceAccountContext(DbContextOptions<ServiceAccountContext> options) : base(options)
     {
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql("Host=host.docker.internal;Port=5432;Database=ServiceAccounts;Username=postgres;Password=admin");
-    }
 }

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RBTB_ServiceAccount.Application.Domains.Requests.Users;
 using RBTB_ServiceAccount.Application.Domains.Responses.Users;
 using Swashbuckle.AspNetCore.Annotations;
@@ -97,5 +98,25 @@ public class UsersController : ControllerBase
         }
 
         return BadRequest( resp );
+    }
+
+    [HttpGet]
+    [Route("login")]
+    [SwaggerResponse(StatusCodes.Status200OK, "200", typeof(GetUserByIdResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "400", typeof(GetUserByIdResponse))]
+    public async Task<IActionResult> LoginUser(string login, string password)
+    {
+        var resp = await _mediator.Send(new GetUsersRequest());
+
+        if(resp.Success)
+        {
+            var user = resp.Data.FirstOrDefault(a => a.Login == login && a.Password == password);
+            if (user is not null)
+            {
+                return Ok(new GetUserByIdResponse() { Success = true, Data = user});
+            }
+        }
+
+        return BadRequest(new GetUserByIdResponse(){Success = false});
     }
 }
